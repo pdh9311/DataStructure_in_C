@@ -9,7 +9,15 @@ ArrayList*	createArrayList(int maxElementCount)
 	if (arraylist == NULL)
 		return (NULL);
 	arraylist->maxElementCount = maxElementCount;
-	arraylist->pElement = (ArrayListNode *)malloc(sizeof(ArrayListNode) * )
+	arraylist->currentElementCount = 0;
+	arraylist->pElement = (ArrayListNode *)malloc(sizeof(ArrayListNode) * maxElementCount);
+	if (arraylist->pElement == NULL)
+	{
+		free(arraylist);
+		arraylist = NULL;
+		return (NULL);
+	}
+	return (arraylist);
 }
 
 void			deleteArrayList(ArrayList* pList)
