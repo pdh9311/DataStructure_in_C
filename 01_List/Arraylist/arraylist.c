@@ -7,7 +7,12 @@ ArrayList*	createArrayList(int maxElementCount)
 {
 	ArrayList*	arraylist;
 
-	if (maxElementCount > 0 && maxElementCount <= __INT_MAX__)
+	if (maxElementCount < 0)
+	{
+		printf("Error:parameter:maxElementCount < 0 or maxElementCount > __INT_MAX__\n");
+		return (NULL);
+	}
+	else
 	{
 		arraylist = (ArrayList*)malloc(sizeof(ArrayList));
 		if (arraylist == NULL)
@@ -23,20 +28,21 @@ ArrayList*	createArrayList(int maxElementCount)
 		}
 		memset(arraylist->pElement, 0, sizeof(ArrayListNode) * maxElementCount);
 	}
-	else
-	{
-		printf("Error:parameter:maxElementCount < 0 or maxElementCount > __INT_MAX__\n");
-		return (NULL);
-	}
 	return (arraylist);
 }
 
 void	deleteArrayList(ArrayList* pList)
 {
-	free(pList->pElement);
-	pList->pElement = NULL;
-	free(pList);
-	pList = NULL;
+	if (pList->pElement)
+	{
+		free(pList->pElement);
+		pList->pElement = NULL;
+	}
+	if (pList)
+	{
+		free(pList);
+		pList = NULL;
+	}
 }
 
 int	isArrayListFull(ArrayList* pList)
@@ -102,10 +108,10 @@ int	removeALElement(ArrayList* pList, int position)
 {
 	int	i;
 
-	if (position < 0 || position > pList->maxElementCount)
+	if (position < 0 || position >= pList->currentElementCount)
 		return (FALSE);
 	memset(&pList->pElement[position], 0, sizeof(ArrayListNode));
-	for (i = position; i < pList->currentElementCount; i++)
+	for (i = position; i < pList->currentElementCount - 1; i++)
 	{
 		pList->pElement[i] = pList->pElement[i + 1];
 	}
@@ -115,6 +121,8 @@ int	removeALElement(ArrayList* pList, int position)
 
 ArrayListNode*	getALElement(ArrayList* pList, int position)
 {
+	if (position < 0 || position >= pList->currentElementCount)
+		return (NULL);
 	return (&(pList->pElement[position]));
 }
 
