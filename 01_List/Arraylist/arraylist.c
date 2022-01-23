@@ -77,9 +77,7 @@ int	addALElement(ArrayList* pList, int position, ArrayListNode element)
 	else	// 중간 위치에 노드 추가
 	{
 		for (i = pList->currentElementCount - 1; i >= position; i--)
-		{
 			pList->pElement[i + 1] = pList->pElement[i];
-		}
 		pList->pElement[position] = element;
 		(pList->currentElementCount)++;
 	}

@@ -1,7 +1,4 @@
 #include "linkedlist.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 LinkedList*	createLinkedList()
 {
@@ -17,51 +14,96 @@ LinkedList*	createLinkedList()
 int	addLLElement(LinkedList* pList, int position, ListNode element)
 {
 	ListNode	*curr;
-	ListNode	prev;
-	ListNode	next;
+	ListNode	*addNode;
+	int			i;
 
-	if (position < 0)
+	addNode = (ListNode *)malloc(sizeof(ListNode));
+	if (addNode == NULL || position < 0 || position > pList->currentElementCount)
 		return (FALSE);
-	if (pList->currentElementCount == 0)	// 첫 번째 노드 추가
+	*addNode = element;
+	if (pList->currentElementCount == 0)	// node가 하나도 없을때
 	{
-		pList->headerNode = element;
-		(pList->currentElementCount)++;
+		pList->headerNode.pLink = addNode;
+		pList->currentElementCount++;
 	}
-	else if (position > pList->currentElementCount)	// 1
+	else if (position == 0)	// 첫 번째 노드에 추가
 	{
-		element.pLink = NULL;
-		*curr = pList->headerNode;
-		while (curr->pLink != NULL)
-			curr = curr->pLink;
-		curr->pLink = &element;
+		addNode->pLink = pList->headerNode.pLink;
+		pList->headerNode.pLink = addNode;
+		pList->currentElementCount++;
 	}
 	else
-
-
-
+	{
+		curr = pList->headerNode.pLink;
+		for (i = 0; i < position - 1; i++)	// position 이전 노드까지 이동
+			curr = curr->pLink;
+		addNode->pLink = curr->pLink;
+		curr->pLink = addNode;
+		pList->currentElementCount++;
+	}
+	return (TRUE);
 }
 
 int	removeLLElement(LinkedList* pList, int position)
 {
+	ListNode	*curr;
+	ListNode	*temp;
+	int			i;
 
+	curr = pList->headerNode.pLink;
+	if (position < 0 || position >= pList->currentElementCount || pList->currentElementCount == 0)
+		return (FALSE);
+	if (position == 0)
+	{
+		temp = curr;
+		pList->headerNode.pLink = curr->pLink;
+	}
+	else
+	{
+		for (i = 0; i < position - 1; i++)	// position 이전 노드까지 이동
+			curr = curr->pLink;
+		temp = curr->pLink;
+		curr->pLink = curr->pLink->pLink;
+	}
+	if (temp)
+	{
+		free(temp);
+		temp = NULL;
+	}
+	pList->currentElementCount--;
+	return (TRUE);
 }
 
 ListNode*	getLLElement(LinkedList* pList, int position)
 {
+	int			i;
+	ListNode	*curr;
 
+	if (position < 0 || position >= pList->currentElementCount || pList->currentElementCount == 0)
+		return (NULL);
+	curr = pList->headerNode.pLink;
+	for (i = 0; i < position; i++)	// position 노드까지 이동
+		curr = curr->pLink;
+	return (curr);
 }
 
 void	clearLinkedList(LinkedList* pList)
 {
-
+	while (pList->currentElementCount)
+		removeLLElement(pList, 0);
 }
 
 int	getLinkedListLength(LinkedList* pList)
 {
-
+	return (pList->currentElementCount);
 }
 
 void	deleteLinkedList(LinkedList* pList)
 {
-
+	clearLinkedList(pList);
+	if (pList)
+	{
+		free(pList);
+		pList = NULL;
+	}
 }
