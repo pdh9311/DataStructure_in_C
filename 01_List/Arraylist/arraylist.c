@@ -5,16 +5,16 @@
 
 ArrayList*	createArrayList(int maxElementCount)
 {
-	ArrayList	*arraylist;
+	ArrayList*	arraylist;
 
 	if (maxElementCount > 0 && maxElementCount <= __INT_MAX__)
 	{
-		arraylist = (ArrayList *)malloc(sizeof(ArrayList));
+		arraylist = (ArrayList*)malloc(sizeof(ArrayList));
 		if (arraylist == NULL)
 			return (NULL);
 		arraylist->maxElementCount = maxElementCount;
 		arraylist->currentElementCount = 0;
-		arraylist->pElement = (ArrayListNode *)malloc(sizeof(ArrayListNode) * maxElementCount);
+		arraylist->pElement = (ArrayListNode*)malloc(sizeof(ArrayListNode) * maxElementCount);
 		if (arraylist->pElement == NULL)
 		{
 			free(arraylist);
@@ -61,7 +61,7 @@ int	isArrayListFull(ArrayList* pList)
 int	addALElement(ArrayList* pList, int position, ArrayListNode element)
 {
 	int				i;
-	ArrayListNode	*newElement;
+	ArrayListNode*	newElement;
 
 	if (position < 0 || position > pList->maxElementCount)
 		return (FALSE);
@@ -71,7 +71,7 @@ int	addALElement(ArrayList* pList, int position, ArrayListNode element)
 			pList->maxElementCount += (10 - pList->maxElementCount % 10);
 		else
 			pList->maxElementCount += 10;
-		newElement = (ArrayListNode *)malloc(sizeof(ArrayListNode) * pList->maxElementCount);
+		newElement = (ArrayListNode*)malloc(sizeof(ArrayListNode) * pList->maxElementCount);
 		if (newElement == NULL)
 			return (FALSE);
 		for (i = 0; i < pList->currentElementCount; i++)
@@ -136,7 +136,7 @@ void	clearArrayList(ArrayList* pList)
 	pList->pElement = NULL;
 	pList->maxElementCount = 10;
 	pList->currentElementCount = 0;
-	pList->pElement = (ArrayListNode *)malloc(sizeof(ArrayListNode) * 10);
+	pList->pElement = (ArrayListNode*)malloc(sizeof(ArrayListNode) * 10);
 }
 
 int	getArrayListLength(ArrayList* pList)
