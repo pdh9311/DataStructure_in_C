@@ -1,6 +1,10 @@
 #ifndef _ARRAYLIST_
 #define _ARRAYLIST_
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 typedef struct ArrayListNodeType
 {
 	int	data;
@@ -16,11 +20,9 @@ typedef struct ArrayListType
 ArrayList*		createArrayList(int maxElementCount);	// arraylist 할당 및 생성
 void			deleteArrayList(ArrayList* pList);		// arraylist free
 int				isArrayListFull(ArrayList* pList);		// arraylist가 가득 찼는지 확인
-
 int				addALElement(ArrayList* pList, int position, ArrayListNode element);	// arraylist node 추가
 int				removeALElement(ArrayList* pList, int position);	// arraylist node 제거
 ArrayListNode*	getALElement(ArrayList* pList, int position);		// arraylist node 가져오기
-
 void			displayArrayList(ArrayList* pList);		// arraylist 출력
 void			clearArrayList(ArrayList* pList);		// arraylist 초기화
 int				getArrayListLength(ArrayList* pList);	// arraylist에 들어가있는 element의 길이 확인

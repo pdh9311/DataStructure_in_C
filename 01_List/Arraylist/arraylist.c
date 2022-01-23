@@ -1,17 +1,11 @@
 #include "arraylist.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 ArrayList*	createArrayList(int maxElementCount)
 {
 	ArrayList*	arraylist;
 
 	if (maxElementCount < 0)
-	{
-		printf("Error:parameter:maxElementCount < 0 or maxElementCount > __INT_MAX__\n");
 		return (NULL);
-	}
 	else
 	{
 		arraylist = (ArrayList*)malloc(sizeof(ArrayList));
@@ -52,18 +46,6 @@ int	isArrayListFull(ArrayList* pList)
 	return (FALSE);
 }
 
-/**
- * 0 1 2 3 4 5	(curr: 6)
- * a b c d e f
- ************************
- * position:2에 추가
- * 0 1 2 3 4 5 6	(curr: 7)
- * a b g c d e f
- ************************
- * position:7에 추가
- * 0 1 2 3 4 5 6 7	(curr: 7)
- * a b g c d e f h
- */
 int	addALElement(ArrayList* pList, int position, ArrayListNode element)
 {
 	int				i;
@@ -71,7 +53,7 @@ int	addALElement(ArrayList* pList, int position, ArrayListNode element)
 
 	if (position < 0 || position > pList->maxElementCount)
 		return (FALSE);
-	if (isArrayListFull(pList) == TRUE)	// maxElementCount 4, 10, 14
+	if (isArrayListFull(pList) == TRUE)
 	{
 		if (pList->maxElementCount % 10 != 0)
 			pList->maxElementCount += (10 - pList->maxElementCount % 10);
@@ -110,12 +92,9 @@ int	removeALElement(ArrayList* pList, int position)
 
 	if (position < 0 || position >= pList->currentElementCount)
 		return (FALSE);
-	memset(&pList->pElement[position], 0, sizeof(ArrayListNode));
 	for (i = position; i < pList->currentElementCount - 1; i++)
-	{
 		pList->pElement[i] = pList->pElement[i + 1];
-	}
-	memset(&pList->pElement[i], 0, sizeof(ArrayListNode));
+	memset(&pList->pElement[i], 0, sizeof(ArrayListNode));	// i == pList->currentElementCount - 1
 	(pList->currentElementCount)--;
 }
 
@@ -134,16 +113,15 @@ void	displayArrayList(ArrayList* pList)
 		return ;
 	printf("|");
 	for (i = 0; i < pList->currentElementCount; i++)
-		printf("%2d|", pList->pElement[i].data);
+		printf("%d|", pList->pElement[i].data);
 	printf("\n");
 }
 
 void	clearArrayList(ArrayList* pList)
 {
-	free(pList->pElement);
-	pList->pElement = NULL;
 	pList->maxElementCount = 10;
 	pList->currentElementCount = 0;
+	free(pList->pElement);
 	pList->pElement = (ArrayListNode*)malloc(sizeof(ArrayListNode) * 10);
 }
 
