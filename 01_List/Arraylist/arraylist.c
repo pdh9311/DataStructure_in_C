@@ -65,7 +65,7 @@ int	addALElement(ArrayList* pList, int position, ArrayListNode element)
 
 	if (position < 0 || position > pList->maxElementCount)
 		return (FALSE);
-	if (pList->currentElementCount == pList->maxElementCount)	// maxElementCount 4, 10, 14
+	if (isArrayListFull(pList) == TRUE)	// maxElementCount 4, 10, 14
 	{
 		if (pList->maxElementCount % 10 != 0)
 			pList->maxElementCount += (10 - pList->maxElementCount % 10);
@@ -122,6 +122,8 @@ void	displayArrayList(ArrayList* pList)
 {
 	int	i;
 
+	if (pList->currentElementCount == 0)
+		return ;
 	printf("|");
 	for (i = 0; i < pList->currentElementCount; i++)
 		printf("%2d|", pList->pElement[i].data);

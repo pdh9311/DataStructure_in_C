@@ -2,7 +2,12 @@
 
 void	func(void)
 {
-	const int	max = 7;
+
+}
+
+int main(void)
+{
+		const int	max = 7;
 	int			i;
 	ArrayList*	arraylist;
 
@@ -79,12 +84,7 @@ void	func(void)
 	printf("cur: %d | max: %d\n\n", arraylist->currentElementCount, arraylist->maxElementCount);
 
 	/* delete arraylist - free node, free arraylist */
-	deleteArrayList(arraylist);
-}
-
-int main(void)
-{
-	func();
-	// while (1);	// check in background: leaks a.out
+	// deleteArrayList(arraylist);
+	while (1);
 	return (0);
 }
