@@ -1,9 +1,8 @@
-#ifndef _CIRCULARLLINKEDLIST_
-#define _CIRCULARLLINKEDLIST_
+#ifndef _CIRCULARL_LINKEDLIST_
+# define _CIRCULARL_LINKEDLIST_
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+# include <stdio.h>
+# include <stdlib.h>
 
 typedef struct CListNodeType
 {
