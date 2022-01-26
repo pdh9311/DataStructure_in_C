@@ -1,4 +1,4 @@
-#include "CircularLinkedlist.h"
+#include "circularlist.h"
 
 void	list_print(CLinkedList *list)
 {

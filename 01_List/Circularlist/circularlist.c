@@ -1,4 +1,4 @@
-#include "CircularLinkedlist.h"
+#include "circularlist.h"
 
 CLinkedList*	createLinkedList()
 {
@@ -20,8 +20,10 @@ int	addLLElement(CLinkedList* pList, int position, CListNode element)
 	CListNode*	addNode;
 	int			i;
 
+	if (position < 0 || position > pList->currentElementCount)
+		return (FALSE);
 	addNode = (CListNode *)malloc(sizeof(CListNode));
-	if (addNode == NULL || position < 0 || position > pList->currentElementCount)
+	if (addNode == NULL)
 		return (FALSE);
 	*addNode = element;
 	if (pList->currentElementCount == 0)	// node가 하나도 없을때

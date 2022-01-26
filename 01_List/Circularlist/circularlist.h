@@ -1,5 +1,5 @@
-#ifndef _CIRCULARL_LINKEDLIST_
-# define _CIRCULARL_LINKEDLIST_
+#ifndef _CIRCULARLLIST_
+# define _CIRCULARLLIST_
 
 # include <stdio.h>
 # include <stdlib.h>

@@ -1,10 +1,10 @@
-#include "linkedlist.h"
+#include "polylist.h"
 
-LinkedList*	createLinkedList()
+PLinkedList*	createLinkedList()
 {
-	LinkedList*	linkedlist;
+	PLinkedList*	linkedlist;
 
-	linkedlist = (LinkedList*)malloc(sizeof(LinkedList));
+	linkedlist = (PLinkedList*)malloc(sizeof(PLinkedList));
 	if (linkedlist == NULL)
 		return (NULL);
 	linkedlist->currentElementCount = 0;
@@ -12,15 +12,15 @@ LinkedList*	createLinkedList()
 	return (linkedlist);
 }
 
-int	addLLElement(LinkedList* pList, int position, ListNode element)
+int	addLLElement(PLinkedList* pList, int position, PListNode element)
 {
-	ListNode	*curr;
-	ListNode	*addNode;
+	PListNode	*curr;
+	PListNode	*addNode;
 	int			i;
 
 	if (pList == NULL || position < 0 || position > pList->currentElementCount)
 		return (FALSE);
-	addNode = (ListNode *)malloc(sizeof(ListNode));
+	addNode = (PListNode *)malloc(sizeof(PListNode));
 	if (addNode == NULL)
 		return (FALSE);
 	*addNode = element;
@@ -51,10 +51,10 @@ int	addLLElement(LinkedList* pList, int position, ListNode element)
 	return (TRUE);
 }
 
-int	removeLLElement(LinkedList* pList, int position)
+int	removeLLElement(PLinkedList* pList, int position)
 {
-	ListNode	*curr;
-	ListNode	*temp;
+	PListNode	*curr;
+	PListNode	*temp;
 	int			i;
 
 	if (pList == NULL || position < 0 || position >= pList->currentElementCount || pList->currentElementCount == 0)
@@ -81,10 +81,10 @@ int	removeLLElement(LinkedList* pList, int position)
 	return (TRUE);
 }
 
-ListNode*	getLLElement(LinkedList* pList, int position)
+PListNode*	getLLElement(PLinkedList* pList, int position)
 {
 	int			i;
-	ListNode	*curr;
+	PListNode	*curr;
 
 	if (pList == NULL || position < 0 || position >= pList->currentElementCount || pList->currentElementCount == 0)
 		return (NULL);
@@ -94,7 +94,7 @@ ListNode*	getLLElement(LinkedList* pList, int position)
 	return (curr);
 }
 
-void	clearLinkedList(LinkedList* pList)
+void	clearLinkedList(PLinkedList* pList)
 {
 	if (pList == NULL)
 		return ;
@@ -102,14 +102,14 @@ void	clearLinkedList(LinkedList* pList)
 		removeLLElement(pList, 0);
 }
 
-int	getLinkedListLength(LinkedList* pList)
+int	getLinkedListLength(PLinkedList* pList)
 {
 	if (pList == NULL)
 		return (-1);
 	return (pList->currentElementCount);
 }
 
-void	deleteLinkedList(LinkedList* pList)
+void	deleteLinkedList(PLinkedList* pList)
 {
 	if (pList == NULL)
 		return ;
@@ -127,11 +127,11 @@ void	deleteLinkedList(LinkedList* pList)
  * a = b;
  * b = tmp;
  */
-void	reverseLinkedList(LinkedList* pList)
+void	reverseLinkedList(PLinkedList* pList)
 {
-	ListNode*	prev;
-	ListNode*	curr;
-	ListNode*	pnode;
+	PListNode*	prev;
+	PListNode*	curr;
+	PListNode*	pnode;
 	int			i;
 
 	if (pList == NULL)
@@ -148,3 +148,67 @@ void	reverseLinkedList(LinkedList* pList)
 	pList->headerNode.pLink = curr;
 }
 
+int	addPolyNodeList(PLinkedList* pList, float coef, int degree)
+{
+	PListNode*	curr;
+	PListNode	addNode;
+	int			i;
+
+	if (pList == NULL)
+		return (FALSE);
+	addNode.coef = coef;
+	addNode.degree = degree;
+	curr = pList->headerNode.pLink;
+	if (pList->currentElementCount == 0)
+	{
+		addLLElement(pList, 0, addNode);
+		return (TRUE);
+	}
+	for (i = 0; i < getLinkedListLength(pList); i++)
+	{
+		if (curr->degree == degree)
+		{
+			curr->coef += coef;
+			break ;
+		}
+		else if (curr->degree < degree)
+		{
+			addLLElement(pList, i, addNode);
+			break ;
+		}
+		else if (i == getLinkedListLength(pList) - 1 && curr->degree > degree)
+		{
+			addLLElement(pList, i + 1, addNode);
+			break ;
+		}
+		else
+			curr = curr->pLink;
+	}
+	return (TRUE);
+}
+
+int	addPolyNode(PLinkedList* pList, PLinkedList* temp)
+{
+	PListNode*	tmp;
+	int			i;
+
+	if (pList == NULL || temp == NULL)
+		return (FALSE);
+	tmp = temp->headerNode.pLink;
+	for (i = 0; i < getLinkedListLength(temp); i++)
+	{
+		addPolyNodeList(pList, tmp->coef, tmp->degree);
+		tmp = tmp->pLink;
+	}
+	return (TRUE);
+}
+
+PLinkedList*	addPolyList(PLinkedList* a, PLinkedList* b)
+{
+	PLinkedList*	newlist;
+
+	newlist = createLinkedList();
+	addPolyNode(newlist, a);
+	addPolyNode(newlist, b);
+	return (newlist);
+}
