@@ -8,6 +8,9 @@ CLinkedList*	createLinkedList()
 	if (linkedlist == NULL)
 		return (NULL);
 	linkedlist->currentElementCount = 0;
+	/* add start */
+	linkedlist->headerNode.pLink = NULL;
+	// end
 	return (linkedlist);
 }
 
