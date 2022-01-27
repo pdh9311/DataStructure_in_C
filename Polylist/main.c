@@ -35,7 +35,6 @@ void	func1()
 int main(void)
 {
 	func1();
-	// func2();
 	// system("leaks a.out");
 	return (0);
 }
