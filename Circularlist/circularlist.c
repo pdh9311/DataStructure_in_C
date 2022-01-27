@@ -151,7 +151,7 @@ void	displayCircularList(CircularList *pList)
 	else{
 		for (i = 0; i < pList->currentElementCount; i++)
 		{
-			printf("(%d) %d\t", i % pList->currentElementCount, curr->data);
+			printf("%d ", i % pList->currentElementCount, curr->data);
 			curr = curr->pLink;
 		}
 	}

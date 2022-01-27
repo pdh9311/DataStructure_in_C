@@ -24,6 +24,9 @@ ListNode*	getLLElement(LinkedList* pList, int position);						// 노드 가져�
 void		clearLinkedList(LinkedList* pList);									// linkedlist 초기화
 int			getLinkedListLength(LinkedList* pList);								// linkedlist 노드의 개수 확인
 void		deleteLinkedList(LinkedList* pList);								// linkedlist free
+
+void		reverseLinkedList(LinkedList* pList);
+void		displayLinkedList(LinkedList *pList);
 #endif
 
 #ifndef _COMMON_LIST_DEF_

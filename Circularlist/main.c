@@ -2,88 +2,88 @@
 
 void	func1()
 {
-	CircularList	*clist;
+	CircularList	*list;
 	CircularNode	node;
 
 	/* circular list 생성 */
-	clist = createCircularList();
+	list = createCircularList();
 
 	/* 1개 생성 후 제거 */
 	node.data = 10;
-	addCLElement(clist, 0, node);
-	displayCircularList(clist);
+	addCLElement(list, 0, node);
+	displayCircularList(list);
 
-	removeCLElement(clist, 0);
-	displayCircularList(clist);
+	removeCLElement(list, 0);
+	displayCircularList(list);
 
 	/* 0~4 생성 */
 	node.data = 10;
-	addCLElement(clist, 0, node);
-	displayCircularList(clist);
+	addCLElement(list, 0, node);
+	displayCircularList(list);
 
 	node.data = 11;
-	addCLElement(clist, 1, node);
-	displayCircularList(clist);
+	addCLElement(list, 1, node);
+	displayCircularList(list);
 
 	node.data = 12;
-	addCLElement(clist, 2, node);
-	displayCircularList(clist);
+	addCLElement(list, 2, node);
+	displayCircularList(list);
 
 	node.data = 13;
-	addCLElement(clist, 3, node);
-	displayCircularList(clist);
+	addCLElement(list, 3, node);
+	displayCircularList(list);
 
 	node.data = 14;
-	addCLElement(clist, 4, node);
-	displayCircularList(clist);
+	addCLElement(list, 4, node);
+	displayCircularList(list);
 
 	/* 마지막 노드 제거 */
-	removeCLElement(clist, 4);
-	displayCircularList(clist);
+	removeCLElement(list, 4);
+	displayCircularList(list);
 
 	/* 중간 노드 제거 */
-	removeCLElement(clist, 2);
-	displayCircularList(clist);
+	removeCLElement(list, 2);
+	displayCircularList(list);
 
 	/* 첫 번째 노드 제거 */
-	removeCLElement(clist, 0);
-	displayCircularList(clist);
+	removeCLElement(list, 0);
+	displayCircularList(list);
 
 	/* 전체 노드 제거 */
-	clearCircularList(clist);
-	displayCircularList(clist);
+	clearCircularList(list);
+	displayCircularList(list);
 
 	/* 리스트 해제 */
-	deleteCircularList(clist);
+	deleteCircularList(list);
 }
 
 void func2()
 {
-	CircularList	*clist;
+	CircularList	*list;
 	CircularNode	node;
 
 	/* circular list 생성 */
-	clist = createCircularList();
+	list = createCircularList();
 
 	/* 0~4 생성 */
 	node.data = 10;
-	addCLElement(clist, 0, node);
+	addCLElement(list, 0, node);
 	node.data = 11;
-	addCLElement(clist, 1, node);
+	addCLElement(list, 1, node);
 	node.data = 12;
-	addCLElement(clist, 2, node);
+	addCLElement(list, 2, node);
 	node.data = 13;
-	addCLElement(clist, 3, node);
+	addCLElement(list, 3, node);
 	node.data = 14;
-	addCLElement(clist, 4, node);
+	addCLElement(list, 4, node);
 
 	for (int i = 0; i < 34; i++)
 	{
-		if (i % getCircularListLength(clist) == 0 && i != 0)
+		if (i % getCircularListLength(list) == 0 && i != 0)
 			printf("\n");
-		printf("%d ", getCLElement(clist, i % getCircularListLength(clist))->data);
+		printf("%d ", getCLElement(list, i % getCircularListLength(list))->data);
 	}
-	deleteCircularList(clist);
+	deleteCircularList(list);
 }
 
 int main(void)
