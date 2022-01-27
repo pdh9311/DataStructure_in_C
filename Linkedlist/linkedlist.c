@@ -119,12 +119,14 @@ void	reverseLinkedList(LinkedList* pList)
 	ListNode*	curr;
 	ListNode*	next;
 	int			i;
+	int			listLength;
 
 	if (pList == NULL)
 		return ;
 	curr = NULL;
 	next = pList->headerNode.pLink;
-	for (i = 0; i < getLinkedListLength(pList); i++)
+	listLength = getLinkedListLength(pList);
+	for (i = 0; i < listLength; i++)
 	{
 		prev = curr;
 		curr = next;
