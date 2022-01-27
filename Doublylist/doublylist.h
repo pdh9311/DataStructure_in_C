@@ -21,11 +21,11 @@ int				addDLElement(DoublyList* pList, int position, DoublyListNode element);
 int				removeDLElement(DoublyList* pList, int position);
 DoublyListNode*	getDLElement(DoublyList* pList, int position);
 
-void			displayDoublyList(DoublyList* pList);
 void			clearDoublyList(DoublyList* pList);
 int				getDoublyListLength(DoublyList* pList);
 void			deleteDoublyList(DoublyList* pList);
 
+void			displayDoublyList(DoublyList* pList);
 #endif
 
 #ifndef _COMMON_LIST_DEF_

@@ -21,6 +21,7 @@ PolyList*		createLinkedList();													// linkedlist 생성
 int				addLLElement(PolyList* pList, int position, PolyListNode element);	// 노드 추가
 int				removeLLElement(PolyList* pList, int position);						// 노드 제거
 PolyListNode*	getLLElement(PolyList* pList, int position);						// 노드 가져오기
+
 void			clearLinkedList(PolyList* pList);									// linkedlist 초기화
 int				getLinkedListLength(PolyList* pList);								// linkedlist 노드의 개수 확인
 void			deleteLinkedList(PolyList* pList);									// linkedlist free

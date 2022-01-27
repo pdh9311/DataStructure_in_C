@@ -134,29 +134,6 @@ void	reverseLinkedList(PolyList* pList)
 	pList->headerNode.pLink = curr;
 }
 
-void	displayLinkedList(PolyList *pList)
-{
-	PolyListNode	*curr;
-	int			i;
-
-	if (pList == NULL)
-		return ;
-	curr = pList->headerNode.pLink;
-	if (!curr)
-		printf("empty list");
-	else{
-		for (i = 0; i < getLinkedListLength(pList); i++)
-		{
-			printf("%.1fx^(%d) ", curr->coef, curr->degree);
-			if (i != getLinkedListLength(pList) - 1)
-				printf("+ ");
-			curr = curr->pLink;
-		}
-	}
-	printf("\n");
-}
-
-
 int	addPolyNode(PolyList* pList, float coef, int degree)
 {
 	PolyListNode*	curr;
@@ -223,4 +200,29 @@ PolyList*	plusPolyList(PolyList* a, PolyList* b)
 	mergePolyList(newlist, a);
 	mergePolyList(newlist, b);
 	return (newlist);
+}
+
+void	displayLinkedList(PolyList *pList)
+{
+	PolyListNode	*curr;
+	int				i;
+	int				listLength;
+
+	if (pList == NULL)
+		return ;
+	curr = pList->headerNode.pLink;
+	listLength = getLinkedListLength(pList);
+	if (!curr)
+		printf("empty list");
+	else
+	{
+		for (i = 0; i < listLength; i++)
+		{
+			printf("%.1fx^(%d) ", curr->coef, curr->degree);
+			if (i != listLength - 1)
+				printf("+ ");
+			curr = curr->pLink;
+		}
+	}
+	printf("\n");
 }

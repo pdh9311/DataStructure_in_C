@@ -138,15 +138,21 @@ void	displayLinkedList(LinkedList *pList)
 {
 	ListNode	*curr;
 	int			i;
+	int			listLength;
 
 	if (pList == NULL)
 		return ;
 	curr = pList->headerNode.pLink;
+	listLength = getLinkedListLength(pList);
 	if (!curr)
 		printf("empty list");
-	else{
-		for (i = 0; i < getLinkedListLength(pList); i++)
-			printf("%d ", getLLElement(pList, i)->data);
+	else
+	{
+		for (i = 0; i < listLength; i++)
+		{
+			printf("%d ", curr->data);
+			curr = curr->pLink;
+		}
 	}
 	printf("\n");
 }

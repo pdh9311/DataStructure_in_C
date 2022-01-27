@@ -69,23 +69,6 @@ DoublyListNode*	getDLElement(DoublyList* pList, int position) 		// 노드 가져
 	return (curr);
 }
 
-void	displayDoublyList(DoublyList* pList)
-{
-	DoublyListNode	*curr;
-	int	i;
-
-	if (pList == NULL)
-		return ;
-	curr = pList->headerNode.pRLink;
-	if (curr == &pList->headerNode)
-		printf("empty list");
-	else{
-		for (i = 0; i < getDoublyListLength(pList); i++)
-			printf("%d ", getDLElement(pList, i)->data);
-	}
-	printf("\n");
-}
-
 void	clearDoublyList(DoublyList* pList) 		// list 초기화
 {
 	DoublyListNode	*curr;
@@ -119,4 +102,27 @@ void	deleteDoublyList(DoublyList* pList) 	// list free
 	clearDoublyList(pList);
 	free(pList);
 	pList = NULL;
+}
+
+void	displayDoublyList(DoublyList* pList)
+{
+	DoublyListNode	*curr;
+	int				i;
+	int				listLength;
+
+	if (pList == NULL)
+		return ;
+	curr = pList->headerNode.pRLink;
+	listLength = getDoublyListLength(pList);
+	if (curr == &pList->headerNode)
+		printf("empty list");
+	else
+	{
+		for (i = 0; i < listLength; i++)
+		{
+			printf("%d ", curr->data);
+			curr = curr->pRLink;
+		}
+	}
+	printf("\n");
 }

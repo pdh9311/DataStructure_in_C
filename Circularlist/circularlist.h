@@ -2,7 +2,6 @@
 #define _CIRCULARLIST_
 
 #include <stdlib.h>
-#include <string.h>
 #include <stdio.h>
 
 typedef struct CircularNodeType
@@ -21,6 +20,7 @@ CircularList*	createCircularList();													// Circularlist 생성
 int				addCLElement(CircularList* pList, int position, CircularNode element);	// 노드 추가
 int				removeCLElement(CircularList* pList, int position);						// 노드 제거
 CircularNode*	getCLElement(CircularList* pList, int position);						// 노드 가져오기
+
 void			clearCircularList(CircularList* pList);									// Circularlist 초기화
 int				getCircularListLength(CircularList* pList);								// Circularlist 노드의 개수 확인
 void			deleteCircularList(CircularList* pList);								// Circularlist free

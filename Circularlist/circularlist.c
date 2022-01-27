@@ -12,12 +12,6 @@ CircularList*	createCircularList()		// Circularlist 생성
 	return (circularlist);
 }
 
-
-/**
- * 0 1 2 3 4 (curr: 5)
- * position (5)
- *
- */
 int	addCLElement(CircularList* pList, int position, CircularNode element)		// 노드 추가
 {
 	CircularNode	*curr;
@@ -141,17 +135,20 @@ CircularNode*	getLastCLElement(CircularList* pList)
 void	displayCircularList(CircularList *pList)
 {
 	CircularNode	*curr;
-	int	i;
+	int				i;
+	int				listLength;
 
 	if (pList == NULL)
 		return ;
 	curr = pList->headerNode.pLink;
+	listLength = getCircularListLength(pList);
 	if (!curr)
 		printf("empty list");
-	else{
-		for (i = 0; i < pList->currentElementCount; i++)
+	else
+	{
+		for (i = 0; i < listLength; i++)
 		{
-			printf("%d ", i % pList->currentElementCount, curr->data);
+			printf("%d ", curr->data);
 			curr = curr->pLink;
 		}
 	}
