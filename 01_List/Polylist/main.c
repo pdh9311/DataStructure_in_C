@@ -15,7 +15,7 @@ void	list_print(PLinkedList *lst)
 	printf("\n");
 }
 
-int	func1()
+void	func1()
 {
 	PLinkedList*	a;
 	PLinkedList*	b;
@@ -27,8 +27,8 @@ int	func1()
 	b = createLinkedList();
 
 	/* 다항식 A*/
-	addPolyNodeList(a, 6, 6);
 	addPolyNodeList(a, 4, 5);
+	addPolyNodeList(a, 6, 6);
 	addPolyNodeList(a, 2, 2);
 	list_print(a);
 

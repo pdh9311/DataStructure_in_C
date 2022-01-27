@@ -8,9 +8,7 @@ CLinkedList*	createLinkedList()
 	if (linkedlist == NULL)
 		return (NULL);
 	linkedlist->currentElementCount = 0;
-	/* add start */
 	linkedlist->headerNode.pLink = NULL;
-	// end
 	return (linkedlist);
 }
 
@@ -25,41 +23,30 @@ int	addLLElement(CLinkedList* pList, int position, CListNode element)
 	addNode = (CListNode *)malloc(sizeof(CListNode));
 	if (addNode == NULL)
 		return (FALSE);
-	*addNode = element;
+	addNode->data = element.data;
 	if (pList->currentElementCount == 0)	// node가 하나도 없을때
 	{
 		pList->headerNode.pLink = addNode;
-		/* add start */
 		addNode->pLink = addNode;
-		// end
 	}
 	else if (position == 0)	// 첫 번째 노드에 추가
 	{
-		/* add start */
 		curr = pList->headerNode.pLink;
-		for (i = 0; i < pList->currentElementCount; i++)
+		for (i = 0; i < pList->currentElementCount - 1; i++)
 			curr = curr->pLink;
-		curr->pLink = addNode;
-		// end
 		addNode->pLink = pList->headerNode.pLink;
 		pList->headerNode.pLink = addNode;
+		curr->pLink = addNode;
 	}
 	else
 	{
 		curr = pList->headerNode.pLink;
 		for (i = 0; i < position - 1; i++)	// position 이전 노드까지 이동
 			curr = curr->pLink;
-		/* modify & add start */
-		if (position == pList->currentElementCount - 1)
-			addNode->pLink = pList->headerNode.pLink;
-		else
-			addNode->pLink = curr->pLink;
-		// end
+		addNode->pLink = curr->pLink;
 		curr->pLink = addNode;
 	}
-	/* move & add start */
 	pList->currentElementCount++;
-	// end
 	return (TRUE);
 }
 
@@ -74,25 +61,26 @@ int	removeLLElement(CLinkedList* pList, int position)
 		return (FALSE);
 	if (position == 0)	// 첫 번째 노드 제거
 	{
-		temp = curr;
-		/* modify & add start */
-		for (i = 0; i < pList->currentElementCount; i++)
-			curr = curr->pLink;
-		curr->pLink = temp->pLink;
-		pList->headerNode.pLink = temp->pLink;
-		// end
+		if (pList->currentElementCount == 1)
+		{
+			temp = curr;
+			pList->headerNode.pLink = NULL;
+		}
+		else
+		{
+			temp = curr;
+			for (i = 0; i < pList->currentElementCount - 1; i++)
+				curr = curr->pLink;
+			curr->pLink = temp->pLink;
+			pList->headerNode.pLink = temp->pLink;
+		}
 	}
 	else
 	{
 		for (i = 0; i < position - 1; i++)	// position 이전 노드까지 이동
 			curr = curr->pLink;
 		temp = curr->pLink;
-		/* modify & add start */
-		if (position == pList->currentElementCount - 1)
-			curr->pLink = pList->headerNode.pLink;
-		else
-			curr->pLink = curr->pLink->pLink;
-		// end
+		curr->pLink = curr->pLink->pLink;
 	}
 	if (temp)
 	{
