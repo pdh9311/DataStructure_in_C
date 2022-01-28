@@ -131,6 +131,14 @@ void	reverseLinkedList(PolyList* pList)
 	pList->headerNode.pLink = curr;
 }
 
+/* 처음 가지고 있는 노드가 하나도 없다면 첫번재 위치에 노드를 추가해준다.
+ * 그 다음...
+ * 노드를 리스트의 처음부터 끝까지 이동하면서
+ * 이동된 노드 위치에서의 degree값 과 파라미터의 degree값을 비교한다.
+ * 파라미터의 degree값이 현재 노드 위치에서의 degree값과 같다면 새로운 노드를 추가하지 않고 바로 coef를 더해주게된다.
+ * 파라미터의 degree값이 현재 노드 위치에서의 degree값보다 크다면 현재위치에 파라미터의 coef, degree를 가지는 새로운 노드를 추가한다.
+ * 마지막 노드까지 이동했지만 위의 두 경우에 포함되지 않았다면 파라미터의 degree가 pList에 있는 degree중 가장 작다는 것을 의미하기 때문에
+ * 마지막 노드 뒤에 파라미터의 coef, degree를 가지는 새로운 노드를 추가해준다. */
 int	addPolyNode(PolyList* pList, float coef, int degree)
 {
 	PolyListNode*	curr;
@@ -172,15 +180,18 @@ int	addPolyNode(PolyList* pList, float coef, int degree)
 	return (TRUE);
 }
 
+/* 이 함수에서는 pList에 temp에 들어있는 다항식을 합쳐주는 역할을 합니다. */
 int	mergePolyList(PolyList* pList, PolyList* temp)
 {
 	PolyListNode*	curr;
 	int				i;
+	int				listLength;
 
 	if (pList == NULL || temp == NULL)
 		return (FALSE);
 	curr = temp->headerNode.pLink;
-	for (i = 0; i < getLinkedListLength(temp); i++)
+	listLength = getLinkedListLength(temp);
+	for (i = 0; i < listLength; i++)
 	{
 		addPolyNode(pList, curr->coef, curr->degree);
 		curr = curr->pLink;
@@ -188,6 +199,8 @@ int	mergePolyList(PolyList* pList, PolyList* temp)
 	return (TRUE);
 }
 
+/* addPolyListNode()함수를 사용해서 다항식의 리스트를 만들었다면
+ * 이번 함수에서는 두 다항식 a, b를 더해주는 역할을 한다. */
 PolyList*	plusPolyList(PolyList* a, PolyList* b)
 {
 	PolyList*	newlist;
@@ -195,6 +208,8 @@ PolyList*	plusPolyList(PolyList* a, PolyList* b)
 	if (a == NULL || b == NULL)
 		return (NULL);
 	newlist = createLinkedList();
+	if (newlist == NULL)
+		return (NULL);
 	mergePolyList(newlist, a);
 	mergePolyList(newlist, b);
 	return (newlist);
