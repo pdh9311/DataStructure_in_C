@@ -110,6 +110,12 @@ void	deleteLinkedList(LinkedList* pList)		// linkedlist free
 	pList = NULL;
 }
 
+/* 리스트 역순을 만들기 위해서
+ * 리스트를 처음부터 끝까지 이동하면서
+ * 현재위치를 기준으로 이전위치와 다음위치를 가지고 있어야
+ * 다음 위치로 이동할 수 있고, 현재위치에서 가리키는 곳을 이전위치로 변경할 수 있습니다.
+ * 여기서 중요한 점은 역순으로 만드는것이기 때문에
+ * 역순으로 만들었을때 마지막 NULL위치를 시작 위치로 잡고 가는 것입니다. */
 void	reverseLinkedList(LinkedList* pList)
 {
 	ListNode*	prev;
