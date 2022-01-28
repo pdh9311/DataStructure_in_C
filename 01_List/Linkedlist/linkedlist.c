@@ -1,8 +1,8 @@
 #include "linkedlist.h"
 
-LinkedList*	createLinkedList()
+LinkedList*	createLinkedList()		// linkedlist 생성
 {
-	LinkedList*	linkedlist;
+	LinkedList* linkedlist;
 
 	linkedlist = (LinkedList*)malloc(sizeof(LinkedList));
 	if (linkedlist == NULL)
@@ -12,139 +12,152 @@ LinkedList*	createLinkedList()
 	return (linkedlist);
 }
 
-int	addLLElement(LinkedList* pList, int position, ListNode element)
+int	addLLElement(LinkedList* pList, int position, ListNode element)		// 노드 추가
 {
 	ListNode	*curr;
 	ListNode	*addNode;
-	int			i;
 
 	if (pList == NULL || position < 0 || position > pList->currentElementCount)
 		return (FALSE);
 	addNode = (ListNode *)malloc(sizeof(ListNode));
 	if (addNode == NULL)
 		return (FALSE);
-	*addNode = element;
-	if (pList->currentElementCount == 0)	// node가 하나도 없을때
-	{
-		pList->headerNode.pLink = addNode;
-		addNode->pLink = NULL;
-		pList->currentElementCount++;
-	}
-	else if (position == 0)	// 첫 번째 노드에 추가
+	addNode->data = element.data;
+	if (position == 0)
 	{
 		addNode->pLink = pList->headerNode.pLink;
 		pList->headerNode.pLink = addNode;
-		pList->currentElementCount++;
 	}
 	else
 	{
-		curr = pList->headerNode.pLink;
-		for (i = 0; i < position - 1; i++)	// position 이전 노드까지 이동
-			curr = curr->pLink;
-		if (position == pList->currentElementCount)
-			addNode->pLink = NULL;
-		else
-			addNode->pLink = curr->pLink;
+		curr = getLLElement(pList, position - 1);
+		addNode->pLink = curr->pLink;
 		curr->pLink = addNode;
-		pList->currentElementCount++;
 	}
+	pList->currentElementCount++;
 	return (TRUE);
 }
 
-int	removeLLElement(LinkedList* pList, int position)
+int	removeLLElement(LinkedList* pList, int position)		// 노드 제거
 {
 	ListNode	*curr;
 	ListNode	*temp;
-	int			i;
 
-	if (pList == NULL || position < 0 || position >= pList->currentElementCount || pList->currentElementCount == 0)
+	if (pList == NULL || position < 0 || position >= pList->currentElementCount)
 		return (FALSE);
-	curr = pList->headerNode.pLink;
 	if (position == 0)
 	{
+		curr = pList->headerNode.pLink;
 		temp = curr;
 		pList->headerNode.pLink = curr->pLink;
 	}
 	else
 	{
-		for (i = 0; i < position - 1; i++)	// position 이전 노드까지 이동
-			curr = curr->pLink;
+		curr = getLLElement(pList, position - 1);
 		temp = curr->pLink;
 		curr->pLink = curr->pLink->pLink;
 	}
-	if (temp)
-	{
-		free(temp);
-		temp = NULL;
-	}
+	free(temp);
+	temp = NULL;
 	pList->currentElementCount--;
 	return (TRUE);
 }
 
-ListNode*	getLLElement(LinkedList* pList, int position)
+ListNode*	getLLElement(LinkedList* pList, int position)		// 노드 가져오기
 {
 	int			i;
 	ListNode	*curr;
 
-	if (pList == NULL || position < 0 || position >= pList->currentElementCount || pList->currentElementCount == 0)
+	if (pList == NULL || position < 0 || position >= pList->currentElementCount)
 		return (NULL);
 	curr = pList->headerNode.pLink;
-	for (i = 0; i < position; i++)	// position 노드까지 이동
+	for (i = 0; i < position; i++)
 		curr = curr->pLink;
 	return (curr);
 }
 
-void	clearLinkedList(LinkedList* pList)
+void	clearLinkedList(LinkedList* pList)		// linkedlist 초기화
 {
+	ListNode	*curr;
+	ListNode	*next;
+
 	if (pList == NULL)
 		return ;
+	curr = pList->headerNode.pLink;
 	while (pList->currentElementCount)
-		removeLLElement(pList, 0);
+	{
+		next = curr->pLink;
+		free(curr);
+		curr = next;
+		pList->currentElementCount--;
+	}
+	pList->headerNode.pLink = NULL;
 }
 
-int	getLinkedListLength(LinkedList* pList)
+int	getLinkedListLength(LinkedList* pList)		// linkedlist 노드의 개수 확인
 {
 	if (pList == NULL)
 		return (-1);
 	return (pList->currentElementCount);
 }
 
-void	deleteLinkedList(LinkedList* pList)
+void	deleteLinkedList(LinkedList* pList)		// linkedlist free
 {
 	if (pList == NULL)
 		return ;
 	clearLinkedList(pList);
-	if (pList)
-	{
-		free(pList);
-		pList = NULL;
-	}
+	free(pList);
+	pList = NULL;
 }
 
-/**
- * a b
- * tmp = a;
- * a = b;
- * b = tmp;
- */
+/* 리스트 역순을 만들기 위해서
+ * 리스트를 처음부터 끝까지 이동하면서
+ * 현재위치를 기준으로 이전위치와 다음위치를 가지고 있어야
+ * 다음 위치로 이동할 수 있고, 현재위치에서 가리키는 곳을 이전위치로 변경할 수 있습니다.
+ * 여기서 중요한 점은 역순으로 만드는것이기 때문에
+ * 역순으로 만들었을때 마지막 NULL위치를 시작 위치로 잡고 가는 것입니다. */
 void	reverseLinkedList(LinkedList* pList)
 {
 	ListNode*	prev;
 	ListNode*	curr;
-	ListNode*	pnode;
+	ListNode*	next;
 	int			i;
+	int			listLength;
 
 	if (pList == NULL)
 		return ;
 	curr = NULL;
-	pnode = pList->headerNode.pLink;
-	for (i = 0; i < getLinkedListLength(pList); i++)
+	next = pList->headerNode.pLink;
+	listLength = getLinkedListLength(pList);
+	for (i = 0; i < listLength; i++)
 	{
 		prev = curr;
-		curr = pnode;
-		pnode = curr->pLink;
+		curr = next;
+		next = curr->pLink;
 		curr->pLink = prev;
 	}
 	pList->headerNode.pLink = curr;
 }
 
+void	displayLinkedList(LinkedList *pList)
+{
+	ListNode	*curr;
+	int			i;
+	int			listLength;
+
+	if (pList == NULL)
+		return ;
+	curr = pList->headerNode.pLink;
+	listLength = getLinkedListLength(pList);
+	if (!curr)
+		printf("empty list");
+	else
+	{
+		for (i = 0; i < listLength; i++)
+		{
+			printf("%d ", curr->data);
+			curr = curr->pLink;
+		}
+	}
+	printf("\n");
+}

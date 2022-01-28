@@ -1,161 +1,154 @@
 #include "polylist.h"
 
-PLinkedList*	createLinkedList()
+PolyList*	createLinkedList()		// linkedlist 생성
 {
-	PLinkedList*	linkedlist;
+	PolyList*	list;
 
-	linkedlist = (PLinkedList*)malloc(sizeof(PLinkedList));
-	if (linkedlist == NULL)
+	list = (PolyList*)malloc(sizeof(PolyList));
+	if (list == NULL)
 		return (NULL);
-	linkedlist->currentElementCount = 0;
-	linkedlist->headerNode.pLink = NULL;
-	return (linkedlist);
+	list->currentElementCount = 0;
+	list->headerNode.pLink = NULL;
+	return (list);
 }
 
-int	addLLElement(PLinkedList* pList, int position, PListNode element)
+int	addLLElement(PolyList* pList, int position, PolyListNode element)		// 노드 추가
 {
-	PListNode	*curr;
-	PListNode	*addNode;
-	int			i;
+	PolyListNode	*curr;
+	PolyListNode	*addNode;
 
 	if (pList == NULL || position < 0 || position > pList->currentElementCount)
 		return (FALSE);
-	addNode = (PListNode *)malloc(sizeof(PListNode));
+	addNode = (PolyListNode *)malloc(sizeof(PolyListNode));
 	if (addNode == NULL)
 		return (FALSE);
 	*addNode = element;
-	if (pList->currentElementCount == 0)	// node가 하나도 없을때
-	{
-		pList->headerNode.pLink = addNode;
-		addNode->pLink = NULL;
-		pList->currentElementCount++;
-	}
-	else if (position == 0)	// 첫 번째 노드에 추가
+	if (position == 0)
 	{
 		addNode->pLink = pList->headerNode.pLink;
 		pList->headerNode.pLink = addNode;
-		pList->currentElementCount++;
 	}
 	else
 	{
-		curr = pList->headerNode.pLink;
-		for (i = 0; i < position - 1; i++)	// position 이전 노드까지 이동
-			curr = curr->pLink;
-		if (position == pList->currentElementCount)
-			addNode->pLink = NULL;
-		else
-			addNode->pLink = curr->pLink;
+		curr = getLLElement(pList, position - 1);
+		addNode->pLink = curr->pLink;
 		curr->pLink = addNode;
-		pList->currentElementCount++;
 	}
+	pList->currentElementCount++;
 	return (TRUE);
 }
 
-int	removeLLElement(PLinkedList* pList, int position)
+int	removeLLElement(PolyList* pList, int position)		// 노드 제거
 {
-	PListNode	*curr;
-	PListNode	*temp;
-	int			i;
+	PolyListNode	*curr;
+	PolyListNode	*temp;
 
-	if (pList == NULL || position < 0 || position >= pList->currentElementCount || pList->currentElementCount == 0)
+	if (pList == NULL || position < 0 || position >= pList->currentElementCount)
 		return (FALSE);
-	curr = pList->headerNode.pLink;
 	if (position == 0)
 	{
+		curr = pList->headerNode.pLink;
 		temp = curr;
 		pList->headerNode.pLink = curr->pLink;
 	}
 	else
 	{
-		for (i = 0; i < position - 1; i++)	// position 이전 노드까지 이동
-			curr = curr->pLink;
+		curr = getLLElement(pList, position - 1);
 		temp = curr->pLink;
 		curr->pLink = curr->pLink->pLink;
 	}
-	if (temp)
-	{
-		free(temp);
-		temp = NULL;
-	}
+	free(temp);
+	temp = NULL;
 	pList->currentElementCount--;
 	return (TRUE);
 }
 
-PListNode*	getLLElement(PLinkedList* pList, int position)
+PolyListNode*	getLLElement(PolyList* pList, int position)		// 노드 가져오기
 {
 	int			i;
-	PListNode	*curr;
+	PolyListNode	*curr;
 
-	if (pList == NULL || position < 0 || position >= pList->currentElementCount || pList->currentElementCount == 0)
+	if (pList == NULL || position < 0 || position >= pList->currentElementCount)
 		return (NULL);
 	curr = pList->headerNode.pLink;
-	for (i = 0; i < position; i++)	// position 노드까지 이동
+	for (i = 0; i < position; i++)
 		curr = curr->pLink;
 	return (curr);
 }
 
-void	clearLinkedList(PLinkedList* pList)
+void	clearLinkedList(PolyList* pList)		// linkedlist 초기화
 {
+	PolyListNode	*curr;
+	PolyListNode	*next;
+
 	if (pList == NULL)
 		return ;
+	curr = pList->headerNode.pLink;
 	while (pList->currentElementCount)
-		removeLLElement(pList, 0);
+	{
+		next = curr->pLink;
+		free(curr);
+		curr = next;
+		pList->currentElementCount--;
+	}
+	pList->headerNode.pLink = NULL;
 }
 
-int	getLinkedListLength(PLinkedList* pList)
+int	getLinkedListLength(PolyList* pList)		// linkedlist 노드의 개수 확인
 {
 	if (pList == NULL)
 		return (-1);
 	return (pList->currentElementCount);
 }
 
-void	deleteLinkedList(PLinkedList* pList)
+void	deleteLinkedList(PolyList* pList)		// linkedlist free
 {
 	if (pList == NULL)
 		return ;
 	clearLinkedList(pList);
-	if (pList)
-	{
-		free(pList);
-		pList = NULL;
-	}
+	free(pList);
+	pList = NULL;
 }
 
-/**
- * a b
- * tmp = a;
- * a = b;
- * b = tmp;
- */
-void	reverseLinkedList(PLinkedList* pList)
+void	reverseLinkedList(PolyList* pList)
 {
-	PListNode*	prev;
-	PListNode*	curr;
-	PListNode*	pnode;
+	PolyListNode*	prev;
+	PolyListNode*	curr;
+	PolyListNode*	next;
 	int			i;
 
 	if (pList == NULL)
 		return ;
 	curr = NULL;
-	pnode = pList->headerNode.pLink;
+	next = pList->headerNode.pLink;
 	for (i = 0; i < getLinkedListLength(pList); i++)
 	{
 		prev = curr;
-		curr = pnode;
-		pnode = curr->pLink;
+		curr = next;
+		next = curr->pLink;
 		curr->pLink = prev;
 	}
 	pList->headerNode.pLink = curr;
 }
 
-int	addPolyNodeList(PLinkedList* pList, float coef, int degree)
+/* 처음 가지고 있는 노드가 하나도 없다면 첫번재 위치에 노드를 추가해준다.
+ * 그 다음...
+ * 노드를 리스트의 처음부터 끝까지 이동하면서
+ * 이동된 노드 위치에서의 degree값 과 파라미터의 degree값을 비교한다.
+ * 파라미터의 degree값이 현재 노드 위치에서의 degree값과 같다면 새로운 노드를 추가하지 않고 바로 coef를 더해주게된다.
+ * 파라미터의 degree값이 현재 노드 위치에서의 degree값보다 크다면 현재위치에 파라미터의 coef, degree를 가지는 새로운 노드를 추가한다.
+ * 마지막 노드까지 이동했지만 위의 두 경우에 포함되지 않았다면 파라미터의 degree가 pList에 있는 degree중 가장 작다는 것을 의미하기 때문에
+ * 마지막 노드 뒤에 파라미터의 coef, degree를 가지는 새로운 노드를 추가해준다. */
+int	addPolyNode(PolyList* pList, float coef, int degree)
 {
-	PListNode*	curr;
-	PListNode	addNode;
-	int			i;
+	PolyListNode*	curr;
+	PolyListNode	addNode;
+	int				i;
+	int				listLength;
 
 	if (pList == NULL)
 		return (FALSE);
+	listLength = getLinkedListLength(pList);
 	addNode.coef = coef;
 	addNode.degree = degree;
 	curr = pList->headerNode.pLink;
@@ -164,7 +157,7 @@ int	addPolyNodeList(PLinkedList* pList, float coef, int degree)
 		addLLElement(pList, 0, addNode);
 		return (TRUE);
 	}
-	for (i = 0; i < getLinkedListLength(pList); i++)
+	for (i = 0; i < listLength; i++)
 	{
 		if (curr->degree == degree)
 		{
@@ -176,7 +169,7 @@ int	addPolyNodeList(PLinkedList* pList, float coef, int degree)
 			addLLElement(pList, i, addNode);
 			break ;
 		}
-		else if (i == getLinkedListLength(pList) - 1 && curr->degree > degree)
+		else if (i == listLength - 1)
 		{
 			addLLElement(pList, i + 1, addNode);
 			break ;
@@ -187,28 +180,62 @@ int	addPolyNodeList(PLinkedList* pList, float coef, int degree)
 	return (TRUE);
 }
 
-int	addPolyNode(PLinkedList* pList, PLinkedList* temp)
+/* 이 함수에서는 pList에 temp에 들어있는 다항식을 합쳐주는 역할을 합니다. */
+int	mergePolyList(PolyList* pList, PolyList* temp)
 {
-	PListNode*	tmp;
-	int			i;
+	PolyListNode*	curr;
+	int				i;
+	int				listLength;
 
 	if (pList == NULL || temp == NULL)
 		return (FALSE);
-	tmp = temp->headerNode.pLink;
-	for (i = 0; i < getLinkedListLength(temp); i++)
+	curr = temp->headerNode.pLink;
+	listLength = getLinkedListLength(temp);
+	for (i = 0; i < listLength; i++)
 	{
-		addPolyNodeList(pList, tmp->coef, tmp->degree);
-		tmp = tmp->pLink;
+		addPolyNode(pList, curr->coef, curr->degree);
+		curr = curr->pLink;
 	}
 	return (TRUE);
 }
 
-PLinkedList*	addPolyList(PLinkedList* a, PLinkedList* b)
+/* addPolyListNode()함수를 사용해서 다항식의 리스트를 만들었다면
+ * 이번 함수에서는 두 다항식 a, b를 더해주는 역할을 한다. */
+PolyList*	plusPolyList(PolyList* a, PolyList* b)
 {
-	PLinkedList*	newlist;
+	PolyList*	newlist;
 
+	if (a == NULL || b == NULL)
+		return (NULL);
 	newlist = createLinkedList();
-	addPolyNode(newlist, a);
-	addPolyNode(newlist, b);
+	if (newlist == NULL)
+		return (NULL);
+	mergePolyList(newlist, a);
+	mergePolyList(newlist, b);
 	return (newlist);
+}
+
+void	displayLinkedList(PolyList *pList)
+{
+	PolyListNode	*curr;
+	int				i;
+	int				listLength;
+
+	if (pList == NULL)
+		return ;
+	curr = pList->headerNode.pLink;
+	listLength = getLinkedListLength(pList);
+	if (!curr)
+		printf("empty list");
+	else
+	{
+		for (i = 0; i < listLength; i++)
+		{
+			printf("%.1fx^(%d) ", curr->coef, curr->degree);
+			if (i != listLength - 1)
+				printf("+ ");
+			curr = curr->pLink;
+		}
+	}
+	printf("\n");
 }

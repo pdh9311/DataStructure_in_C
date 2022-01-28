@@ -94,6 +94,7 @@ int	removeALElement(ArrayList* pList, int position)
 		pList->pElement[i] = pList->pElement[i + 1];
 	memset(&pList->pElement[i], 0, sizeof(ArrayListNode));	// i == pList->currentElementCount - 1
 	(pList->currentElementCount)--;
+	return (TRUE);
 }
 
 ArrayListNode*	getALElement(ArrayList* pList, int position)

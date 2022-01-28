@@ -1,92 +1,94 @@
 #include "circularlist.h"
 
-void	list_print(CLinkedList *list)
-{
-	CListNode*	curr;
-	int			i;
-
-	curr = list->headerNode.pLink;
-	for (i = 0; i < getLinkedListLength(list); i++)
-	{
-		printf("%d ", curr->data);
-		curr = curr->pLink;
-	}
-	printf("\n");
-}
-
 void	func1()
 {
-	CLinkedList*	list1;
-	list1 = createLinkedList();
+	CircularList	*list;
+	CircularNode	node;
 
-	CListNode	node;
-	node.pLink = NULL;
+	/* circular list 생성 */
+	list = createCircularList();
 
+	/* 1개 생성 후 제거 */
 	node.data = 10;
-	addLLElement(list1, 0, node);
-	list_print(list1);
+	addCLElement(list, 0, node);
+	displayCircularList(list);
+
+	removeCLElement(list, 0);
+	displayCircularList(list);
+
+	/* 0~4 생성 */
+	node.data = 10;
+	addCLElement(list, 0, node);
+	displayCircularList(list);
 
 	node.data = 11;
-	addLLElement(list1, 1, node);
-	list_print(list1);
+	addCLElement(list, 1, node);
+	displayCircularList(list);
 
 	node.data = 12;
-	addLLElement(list1, 2, node);
-	list_print(list1);
+	addCLElement(list, 2, node);
+	displayCircularList(list);
 
 	node.data = 13;
-	addLLElement(list1, 3, node);
-	list_print(list1);
+	addCLElement(list, 3, node);
+	displayCircularList(list);
 
 	node.data = 14;
-	addLLElement(list1, 4, node);
-	list_print(list1);
+	addCLElement(list, 4, node);
+	displayCircularList(list);
 
-	removeLLElement(list1, 4);
-	list_print(list1);
+	/* 마지막 노드 제거 */
+	removeCLElement(list, 4);
+	displayCircularList(list);
 
-	removeLLElement(list1, 0);
-	list_print(list1);
+	/* 중간 노드 제거 */
+	removeCLElement(list, 2);
+	displayCircularList(list);
 
-	removeLLElement(list1, 1);
-	list_print(list1);
+	/* 첫 번째 노드 제거 */
+	removeCLElement(list, 0);
+	displayCircularList(list);
 
-	clearLinkedList(list1);
-	list_print(list1);
+	/* 전체 노드 제거 */
+	clearCircularList(list);
+	displayCircularList(list);
 
-	deleteLinkedList(list1);
+	/* 리스트 해제 */
+	deleteCircularList(list);
 }
 
 void func2()
 {
-	CLinkedList*	list2;
-	list2 = createLinkedList();
+	CircularList	*list;
+	CircularNode	node;
 
-	CListNode	node;
-	node.pLink = NULL;
+	/* circular list 생성 */
+	list = createCircularList();
 
+	/* 0~4 생성 */
 	node.data = 10;
-	addLLElement(list2, 0, node);
+	addCLElement(list, 0, node);
 	node.data = 11;
-	addLLElement(list2, 1, node);
+	addCLElement(list, 1, node);
 	node.data = 12;
-	addLLElement(list2, 2, node);
+	addCLElement(list, 2, node);
 	node.data = 13;
-	addLLElement(list2, 3, node);
+	addCLElement(list, 3, node);
 	node.data = 14;
-	addLLElement(list2, 4, node);
-	list_print(list2);
+	addCLElement(list, 4, node);
 
-	moveHeaderNode(list2, 3);
-	list_print(list2);
-
-	deleteLinkedList(list2);
+	for (int i = 0; i < 34; i++)
+	{
+		if (i % getCircularListLength(list) == 0 && i != 0)
+			printf("\n");
+		printf("%d ", getCLElement(list, i % getCircularListLength(list))->data);
+	}
+	deleteCircularList(list);
 }
 
 int main(void)
 {
 	func1();
-	printf("======================\n");
 	func2();
 	// system("leaks a.out");
 	return (0);

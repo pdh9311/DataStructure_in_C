@@ -1,30 +1,32 @@
-#ifndef _CIRCULARLLIST_
-# define _CIRCULARLLIST_
+#ifndef _CIRCULARLIST_
+#define _CIRCULARLIST_
 
-# include <stdio.h>
-# include <stdlib.h>
+#include <stdlib.h>
+#include <stdio.h>
 
-typedef struct CListNodeType
+typedef struct CircularNodeType
 {
-	int						data;
-	struct CListNodeType*	pLink;
-} CListNode;
+	int							data;
+	struct CircularNodeType*	pLink;
+} CircularNode;
 
-typedef struct CLinkedListType
+typedef struct CircularListType
 {
-	int			currentElementCount;	// 현재 저장된 원소의 개수
-	CListNode	headerNode;				// 헤더 노드(Header Node)
-} CLinkedList;
+	int				currentElementCount;	// 현재 저장된 원소의 개수
+	CircularNode	headerNode;				// 헤더 노드(Header Node)
+} CircularList;
 
-CLinkedList*	createLinkedList();												// linkedlist 생성
-int				addLLElement(CLinkedList* pList, int position, CListNode element);	// 노드 추가
-int				removeLLElement(CLinkedList* pList, int position);					// 노드 제거
-CListNode*		getLLElement(CLinkedList* pList, int position);						// 노드 가져오기
-void			clearLinkedList(CLinkedList* pList);								// linkedlist 초기화
-int				getLinkedListLength(CLinkedList* pList);							// linkedlist 노드의 개수 확인
-void			deleteLinkedList(CLinkedList* pList);								// linkedlist free
+CircularList*	createCircularList();													// Circularlist 생성
+int				addCLElement(CircularList* pList, int position, CircularNode element);	// 노드 추가
+int				removeCLElement(CircularList* pList, int position);						// 노드 제거
+CircularNode*	getCLElement(CircularList* pList, int position);						// 노드 가져오기
 
-int				moveHeaderNode(CLinkedList *pList, int position);
+void			clearCircularList(CircularList* pList);									// Circularlist 초기화
+int				getCircularListLength(CircularList* pList);								// Circularlist 노드의 개수 확인
+void			deleteCircularList(CircularList* pList);								// Circularlist free
+
+CircularNode*	getLastCLElement(CircularList* pList);
+void			displayCircularList(CircularList *pList);
 #endif
 
 #ifndef _COMMON_LIST_DEF_

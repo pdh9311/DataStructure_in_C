@@ -8,7 +8,6 @@ void	print_cur_max(ArrayList* arraylist)
 void	func(void)
 {
 	const int	max = 5;
-	int			i;
 	ArrayList*	arraylist;
 
 	/* error */

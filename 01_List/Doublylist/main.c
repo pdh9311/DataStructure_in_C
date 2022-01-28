@@ -1,65 +1,67 @@
 #include "doublylist.h"
 
-void	func(void)
+void	func1()
 {
-	DLinkedList*	dlist;
-	DListNode		node;
-	DListNode*		curr;
-	int				i;
+	DoublyList		*list;
+	DoublyListNode	node;
 
-	dlist = createDoublyList();
+	/* Doubly list 생성 */
+	list = createDoublyList();
 
-	/* 마지막 노드 추가 */
+	/* 1개 생성 후 제거 */
 	node.data = 10;
-	addDLElement(dlist, 0, node);
+	addDLElement(list, 0, node);
+	displayDoublyList(list);
+
+	removeDLElement(list, 0);
+	displayDoublyList(list);
+
+	/* 0~4 생성 */
+	node.data = 10;
+	addDLElement(list, 0, node);
+	displayDoublyList(list);
+
 	node.data = 11;
-	addDLElement(dlist, 1, node);
+	addDLElement(list, 1, node);
+	displayDoublyList(list);
+
 	node.data = 12;
-	addDLElement(dlist, 2, node);
+	addDLElement(list, 2, node);
+	displayDoublyList(list);
+
 	node.data = 13;
-	addDLElement(dlist, 3, node);
-	displayDoublyList(dlist);
+	addDLElement(list, 3, node);
+	displayDoublyList(list);
 
-	/* 중간 노드 추가 */
 	node.data = 14;
-	addDLElement(dlist, 1, node);
-	displayDoublyList(dlist);
+	addDLElement(list, 4, node);
+	displayDoublyList(list);
 
-	/* 첫 번째 노드 추가 */
-	node.data = 15;
-	addDLElement(dlist, 0, node);
-	displayDoublyList(dlist);
+	/* 마지막 노드 제거 */
+	removeDLElement(list, 4);
+	displayDoublyList(list);
 
-	/* data 수정 */
-	curr = getDLElement(dlist, 3);
-	curr->data = 20;
-	displayDoublyList(dlist);
+	/* 중간 노드 제거 */
+	removeDLElement(list, 2);
+	displayDoublyList(list);
 
-	/* double linked list 앞 뒤에서 출력 */
-	printf("\n");
-	curr = dlist->headerNode.pRLink;
-	for (i = 0; i < getDoublyListLength(dlist); i++)
-	{
-		printf("%d ", curr->data); fflush(stdout);
-		if (curr->pRLink != NULL)
-			curr = curr->pRLink;
-	}
-	printf("\n");
-	for (i = 0; i < getDoublyListLength(dlist); i++)
-	{
-		printf("%d ", curr->data); fflush(stdout);
-		curr = curr->pLLink;
-	}
-	printf("\n");
+	/* 첫 번째 노드 제거 */
+	removeDLElement(list, 0);
+	displayDoublyList(list);
 
-	/* free */
-	clearDoublyList(dlist);
-	deleteDoublyList(dlist);
+	/* 전체 노드 제거 */
+	clearDoublyList(list);
+	displayDoublyList(list);
+
+	/* 리스트 해제 */
+	deleteDoublyList(list);
 }
 
-int	main(void)
+
+int main(void)
 {
-	func();
+	func1();
+
 	// system("leaks a.out");
 	return (0);
 }
