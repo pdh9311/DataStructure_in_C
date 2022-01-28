@@ -9,14 +9,14 @@ void	func1()
 	a = createLinkedList();
 	b = createLinkedList();
 
-	/* 다항식 A*/
+	/* 다항식 A */
 	addPolyNode(a, 4, 5);
 	addPolyNode(a, 6, 6);
 	addPolyNode(a, 2, 2);
 	printf("다항식 a   : ");
 	displayLinkedList(a);
 
-	/* 다항식 B*/
+	/* 다항식 B */
 	addPolyNode(b, -1, 5);
 	addPolyNode(b, 2, 4);
 	addPolyNode(b, 3, 2);
