@@ -17,7 +17,6 @@ int	addCLElement(CircularList* pList, int position, CircularNode element)		// �
 	CircularNode	*curr;
 	CircularNode	*addNode;
 	CircularNode	*last;
-	int				i;
 
 	if (pList == NULL || position < 0 || position > pList->currentElementCount)
 		return (FALSE);
@@ -48,7 +47,6 @@ int	removeCLElement(CircularList* pList, int position)		// 노드 제거
 	CircularNode	*curr;
 	CircularNode	*temp;
 	CircularNode	*last;
-	int				i;
 
 	if (pList == NULL || position < 0 || position >= pList->currentElementCount)
 		return (FALSE);

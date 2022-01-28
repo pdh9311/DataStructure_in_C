@@ -16,7 +16,6 @@ int	addLLElement(PolyList* pList, int position, PolyListNode element)		// 노드
 {
 	PolyListNode	*curr;
 	PolyListNode	*addNode;
-	int			i;
 
 	if (pList == NULL || position < 0 || position > pList->currentElementCount)
 		return (FALSE);
@@ -43,8 +42,6 @@ int	removeLLElement(PolyList* pList, int position)		// 노드 제거
 {
 	PolyListNode	*curr;
 	PolyListNode	*temp;
-
-	int	i;
 
 	if (pList == NULL || position < 0 || position >= pList->currentElementCount)
 		return (FALSE);
@@ -138,20 +135,21 @@ int	addPolyNode(PolyList* pList, float coef, int degree)
 {
 	PolyListNode*	curr;
 	PolyListNode	addNode;
-	int			i;
+	int				i;
+	int				listLength;
 
 	if (pList == NULL)
 		return (FALSE);
+	listLength = getLinkedListLength(pList);
 	addNode.coef = coef;
 	addNode.degree = degree;
-
 	curr = pList->headerNode.pLink;
 	if (pList->currentElementCount == 0)
 	{
 		addLLElement(pList, 0, addNode);
 		return (TRUE);
 	}
-	for (i = 0; i < getLinkedListLength(pList); i++)
+	for (i = 0; i < listLength; i++)
 	{
 		if (curr->degree == degree)
 		{
@@ -163,7 +161,7 @@ int	addPolyNode(PolyList* pList, float coef, int degree)
 			addLLElement(pList, i, addNode);
 			break ;
 		}
-		else if (i == getLinkedListLength(pList) - 1)
+		else if (i == listLength - 1)
 		{
 			addLLElement(pList, i + 1, addNode);
 			break ;

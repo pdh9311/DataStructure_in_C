@@ -1,6 +1,6 @@
 #include "arraylist.h"
 
-int func()
+void func()
 {
 	ArrayList		*arrayList;
 	ArrayListNode	node;

@@ -2,11 +2,9 @@
 
 void	func1()
 {
-	PolyList*	a;
-	PolyList*	b;
-	PolyList*	c;
-
-	PolyListNode		node;
+	PolyList*		a;
+	PolyList*		b;
+	PolyList*		c;
 
 	a = createLinkedList();
 	b = createLinkedList();
@@ -30,6 +28,7 @@ void	func1()
 
 	deleteLinkedList(a);
 	deleteLinkedList(b);
+	deleteLinkedList(c);
 }
 
 int main(void)

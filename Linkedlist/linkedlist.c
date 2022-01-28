@@ -16,7 +16,6 @@ int	addLLElement(LinkedList* pList, int position, ListNode element)		// 노드 �
 {
 	ListNode	*curr;
 	ListNode	*addNode;
-	int			i;
 
 	if (pList == NULL || position < 0 || position > pList->currentElementCount)
 		return (FALSE);
@@ -43,8 +42,6 @@ int	removeLLElement(LinkedList* pList, int position)		// 노드 제거
 {
 	ListNode	*curr;
 	ListNode	*temp;
-
-	int	i;
 
 	if (pList == NULL || position < 0 || position >= pList->currentElementCount)
 		return (FALSE);
