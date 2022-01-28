@@ -1,5 +1,6 @@
 #include "linkedlist.h"
 
+/* TEST: linkedlist 추가 삭제 */
 void	func1()
 {
 	LinkedList	*list;
@@ -29,6 +30,7 @@ void	func1()
 	deleteLinkedList(list);
 }
 
+/* TEST: linkedlist reverse */
 void func2(void)
 {
 	LinkedList*	list;
@@ -45,11 +47,13 @@ void func2(void)
 
 	reverseLinkedList(list);
 	displayLinkedList(list);
+
+	deleteLinkedList(list);
 }
 
 int main(void)
 {
-	func1();
+	// func1();
 	func2();
 	// system("leaks a.out");
 	return (0);
