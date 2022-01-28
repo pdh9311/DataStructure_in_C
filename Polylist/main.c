@@ -13,6 +13,7 @@ void	func1()
 	addPolyNode(a, 4, 5);
 	addPolyNode(a, 6, 6);
 	addPolyNode(a, 2, 2);
+	printf("다항식 a   : ");
 	displayLinkedList(a);
 
 	/* 다항식 B*/
@@ -20,10 +21,12 @@ void	func1()
 	addPolyNode(b, 2, 4);
 	addPolyNode(b, 3, 2);
 	addPolyNode(b, 4, 0);
+	printf("다항식 b   : ");
 	displayLinkedList(b);
 
 	/* A + B */
 	c = plusPolyList(a, b);
+	printf("다항식 a+b : ");
 	displayLinkedList(c);
 
 	deleteLinkedList(a);
