@@ -38,9 +38,9 @@ void func2(void)
 	int			i;
 
 	list = createLinkedList();
-	for (i = 0; i < 10; i++)
+	for (i = 0; i < 32; i++)
 	{
-		node.data = i + 10;
+		node.data = i + 1;
 		addLLElement(list, i, node);
 	}
 	displayLinkedList(list);
