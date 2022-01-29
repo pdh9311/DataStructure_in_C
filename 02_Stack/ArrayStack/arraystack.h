@@ -1,23 +1,28 @@
 #ifndef _ARRAY_STACK_
 #define _ARRAY_STACK_
 
+# include <stdio.h>
+# include <stdlib.h>
+
 typedef struct ArrayStackNodeType {
-	char data;
+	char	data;
 } ArrayStackNode;
 
 typedef struct ArrayStackType {
-	int maxElementCount;		// ÃÖ´ë ¿ø¼Ò °³¼ö
-	int currentElementCount;	// ÇöÀç ¿ø¼ÒÀÇ °³¼ö
-	ArrayStackNode *pElement;	// ³ëµå ÀúÀåÀ» À§ÇÑ 1Â÷¿ø array
+	int				maxElementCount;		// ìµœëŒ€ ë…¸ë“œ ê°œìˆ˜
+	int				currentElementCount;	// í˜„ì¬ ë…¸ë“œ ê°œìˆ˜
+	ArrayStackNode	*pElement;				// ì›ì†Œ ì €ì¥ì„ ìœ„í•œ ë°°ì—´ í¬ì¸í„°
 } ArrayStack;
 
-ArrayStack* createArrayStack(int maxElementCount);
-int pushAS(ArrayStack* pStack, ArrayStackNode element);
-ArrayStackNode* popAS(ArrayStack* pStack);
-ArrayStackNode* peekAS(ArrayStack* pStack);
-void deleteArrayStack(ArrayStack* pStack);
-int isArrayStackFull(ArrayStack* pStack);
-int isArrayStackEmpty(ArrayStack* pStack);
+ArrayStack*		createArrayStack(int maxElementCount);				// stack ìƒì„±
+int				pushAS(ArrayStack* pStack, ArrayStackNode element);	// push (stackì— ì¶”ê°€)
+ArrayStackNode*	popAS(ArrayStack* pStack);							// pop (stackì—ì„œ ì œê±°)
+ArrayStackNode*	peekAS(ArrayStack* pStack);							// peek (stackì˜ topì— ìˆëŠ” ë…¸ë“œ í™•ì¸)
+void			deleteArrayStack(ArrayStack* pStack);				// stack í•´ì œ
+int				isArrayStackFull(ArrayStack* pStack);				// stack ê°€ë“ì°¼ëŠ”ì§€ í™•ì¸
+int				isArrayStackEmpty(ArrayStack* pStack);				// stack ë¹„ì—ˆëŠ”ì§€ í™•ì¸
+
+void			displayArrayStack(ArrayStack* pStack);
 
 #endif
 

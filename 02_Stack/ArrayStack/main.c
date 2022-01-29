@@ -1,30 +1,35 @@
-#include "arraylist.h"
+#include "arraystack.h"
 
 void func()
 {
-	ArrayList		*arrayList;
-	ArrayListNode	node;
-	ArrayListNode	*result;
+	ArrayStack*		stack;
+	ArrayStackNode	node;
+	// ArrayStackNode*	result;
 
-	arrayList = createArrayList(10);
-	node.data = 123;
-	addALElement(arrayList, -1, node);
-	node.data = 233;
-	addALElement(arrayList, 1, node);
-	displayArrayList(arrayList);
-	clearArrayList(arrayList);
-	node.data = 111;
-	addALElement(arrayList, 0, node);
-	displayArrayList(arrayList);
-	result = getALElement(arrayList, 0);
-	result->data = 23234;
-	displayArrayList(arrayList);
-	deleteArrayList(arrayList);
+	stack = createArrayStack(10);
+	node.data = 'a';
+	pushAS(stack, node);
+	node.data = 'b';
+	pushAS(stack, node);
+	node.data = 'c';
+	pushAS(stack, node);
+	displayArrayStack(stack);
+
+	popAS(stack);
+	displayArrayStack(stack);
+
+	popAS(stack);
+	displayArrayStack(stack);
+
+	popAS(stack);
+	displayArrayStack(stack);
+
+	deleteArrayStack(stack);
 }
 
 int	main()
 {
 	func();
-	system("leaks a.out");
+	// system("leaks a.out");
 	return (0);
 }
