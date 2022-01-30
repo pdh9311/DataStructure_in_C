@@ -1,14 +1,17 @@
 #ifndef _ARRAY_STACK_
 #define _ARRAY_STACK_
 
+#include <stdio.h>
+#include <stdlib.h>
+
 typedef struct ArrayStackNodeType {
 	char data;
 } ArrayStackNode;
 
 typedef struct ArrayStackType {
-	int maxElementCount;		// ÃÖ´ë ¿ø¼Ò °³¼ö
-	int currentElementCount;	// ÇöÀç ¿ø¼ÒÀÇ °³¼ö
-	ArrayStackNode *pElement;	// ³ëµå ÀúÀåÀ» À§ÇÑ 1Â÷¿ø array
+	int maxElementCount;		// ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	int currentElementCount;	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	ArrayStackNode *pElement;	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ array
 } ArrayStack;
 
 ArrayStack* createArrayStack(int maxElementCount);
@@ -18,6 +21,7 @@ ArrayStackNode* peekAS(ArrayStack* pStack);
 void deleteArrayStack(ArrayStack* pStack);
 int isArrayStackFull(ArrayStack* pStack);
 int isArrayStackEmpty(ArrayStack* pStack);
+void displayArrayStack(ArrayStack* pStack);
 
 #endif
 
