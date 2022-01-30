@@ -1,8 +1,8 @@
 #include "arraystack.h"
 
-ArrayStack*		createArrayStack(int maxElementCount)
+ArrayStack* createArrayStack(int maxElementCount)
 {
-	ArrayStack*	stack;
+	ArrayStack* stack;
 	
 	if (maxElementCount <= 0)
 		return (NULL);
@@ -21,60 +21,116 @@ ArrayStack*		createArrayStack(int maxElementCount)
 	return (stack);
 }
 
-int	pushAS(ArrayStack* pStack, ArrayStackNode element)
+int pushAS(ArrayStack* pStack, ArrayStackNode element)
 {
-	if (pStack == NULL || pStack->currentElementCount == pStack->maxElementCount)	// overflow
+	int current; 
+	int max;
+
+	if (pStack == NULL || pStack->pElement == NULL)
+	{
+		printf("(NULL)\n");
 		return (FALSE);
-	pStack->pElement[pStack->currentElementCount] = element;
+	}
+	current = pStack->currentElementCount;
+	max = pStack->maxElementCount;
+	if (isArrayStackFull(pStack))
+	{
+		printf("overflow\n");	
+		return (FALSE);
+	}
+	pStack->pElement[current].data = element.data;
 	pStack->currentElementCount++;
-	return (TRUE);	
+	return (TRUE);
 }
 
-ArrayStackNode*	popAS(ArrayStack* pStack)
+ArrayStackNode* popAS(ArrayStack* pStack)
 {
-	if (pStack == NULL || pStack->currentElementCount == 0)	// underflow
+	int	pop;
+
+	if (pStack == NULL || pStack->pElement == NULL)
+	{
+		printf("(NULL)\n");
 		return (NULL);
+	}
+	if (isArrayStackEmpty(pStack))
+	{
+		printf("underflow\n");
+		return (NULL);
+	}
+	pop = pStack->currentElementCount - 1;
 	pStack->currentElementCount--;
-	return (&pStack->pElement[pStack->currentElementCount]);
+	return (&pStack->pElement[pop]);
 }
 
-ArrayStackNode*	peekAS(ArrayStack* pStack)
+ArrayStackNode* peekAS(ArrayStack* pStack) //top을 보는 것!
 {
-	if (pStack == NULL || pStack->currentElementCount == 0)
+	int	top;
+
+	if (pStack == NULL || pStack->pElement == NULL)
+	{
+		printf("(NULL)\n");
 		return (NULL);
-	return (&pStack->pElement[pStack->currentElementCount - 1]);
+	}
+	if (pStack->currentElementCount == 0)
+	{
+		printf("empty\n");
+		return (NULL);
+	}
+	top = pStack->currentElementCount - 1;
+	return (&pStack->pElement[top]);
 }
 
-void	deleteArrayStack(ArrayStack* pStack)
+void deleteArrayStack(ArrayStack* pStack)
 {
-	if (pStack == NULL)
+	if (pStack == NULL || pStack->pElement == NULL)
+	{
+		printf("(NULL)\n");
 		return ;
+	}
 	free(pStack->pElement);
 	pStack->pElement = NULL;
 	free(pStack);
+	pStack = NULL;
 }
 
-int	isArrayStackFull(ArrayStack* pStack)
+int isArrayStackFull(ArrayStack* pStack)
 {
-	if (pStack == NULL || pStack->currentElementCount != pStack->maxElementCount)
+	if (pStack == NULL || pStack->pElement == NULL)
+	{
+		printf("(NULL)\n");
 		return (FALSE);
-	return (TRUE);
+	}
+	if (pStack->currentElementCount == pStack->maxElementCount)
+		return (TRUE);
+	return (FALSE);
 }
-
-int	isArrayStackEmpty(ArrayStack* pStack)
+int isArrayStackEmpty(ArrayStack* pStack)
 {
-	if (pStack == NULL || pStack->currentElementCount != 0)
+	if (pStack == NULL || pStack->pElement == NULL)
+	{
+		printf("(NULL)\n");
 		return (FALSE);
-	return (TRUE);
+	}
+	if (pStack->currentElementCount == 0)
+		return (TRUE);
+	return (FALSE);
 }
 
-void	displayArrayStack(ArrayStack* pStack)
+void displayArrayStack(ArrayStack* pStack)
 {
-	if (pStack == NULL)
+	int	i;
+	
+	if (pStack == NULL || pStack->pElement == NULL)
+	{
+		printf("(NULL)\n");
 		return ;
-	// for (int i = 0; i < pStack->maxElementCount - pStack->currentElementCount; i++)
-	// 	printf("| |\n");
-	for (int i = pStack->currentElementCount - 1; i >= 0; i--)
+	}
+	printf("Max : %d\n", pStack->maxElementCount);
+	for (i = pStack->currentElementCount - 1; i >= 0; i--)
+	{
 		printf("|%c|\n", pStack->pElement[i].data);
+		fflush(stdout);
+
+	}
 	printf(" ⎺\n");
 }

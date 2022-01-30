@@ -1,7 +1,7 @@
 NAME = a.out
 
 CFLAGE = -Wall -Wextra -Werror
-SRCS = main.c linkedlist.c
+SRCS = main.c linkedstack.c
 OBJS = $(SRCS:.c=.o)
 
 $(NAME) : $(OBJS)
