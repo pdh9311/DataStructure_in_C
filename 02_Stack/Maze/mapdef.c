@@ -30,4 +30,5 @@ void move(MapPosition *pos, int **maze)
 			pos->direction = 1;
 	}
 
+
 }
