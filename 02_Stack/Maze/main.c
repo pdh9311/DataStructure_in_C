@@ -1,29 +1,45 @@
 #include "linkedstack.h"
+#include "mapdef.h"
+
+int maze[HEIGHT][WIDTH] = {
+	{0, 0, 1, 1, 1, 1, 1, 1},
+	{1, 0, 0, 0, 0, 0, 0, 1},
+	{1, 1, 1, 0, 1, 1, 1, 1},
+	{1, 1, 1, 0, 1, 1, 1, 1},
+	{1, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 1, 1, 1, 1, 1, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0},
+	{1, 1, 1, 1, 1, 1, 1, 0},
+};
+
+int moveable(MapPosition pos)
+{
+
+}
+
 
 int main(void)
 {
-	int maze[HEIGHT][WIDTH] = {
-		{0, 0, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 1, 0, 1, 1, 1, 1},
-		{1, 1, 1, 0, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0},
-		{1, 1, 1, 1, 1, 1, 1, 0},
-	};
-	// LinkedStack *stack = createLinkedStack();
+	LinkedStack *stack = createLinkedStack();
+	MapPosition pos;
+	pos.x = 0;
+	pos.y = 0;
+	pos.direction = 0;
 
-	MapPosition	pos = {0, 0, 1};
-	int	tmp1, tmp2;
+	while (1) {
+		maze[pos.y][pos.x] = VISIT;
+		if (pos.y == HEIGHT - 1 && pos.x == WIDTH - 1) {
+			printf("Escaped from the maze!!!!\n");
+			break ;
+		}
+		int forwarded = FALSE;
+		for (int i = 0; i < 4; i++) {
+			if (moveable(pos))
+		}
 
-	while (pos.x != 7 && pos.y != 7)
-	{
-		printf("(%d, %d)\n", pos.x, pos.y);	// 현재 위치
-		if (maze[pos.y][pos.x] )
-		move(&pos, DIRECTION_OFFSETS[pos.direction]);
+
+
 	}
-
-
 	return (0);
 }
+
