@@ -1,6 +1,10 @@
 #ifndef _LINKED_DEQUE_
 #define _LINKED_DEQUE_
 
+# include <stdio.h>
+# include <stdlib.h>
+# include "color.h"
+
 typedef struct DequeNodeType
 {
 	char data;
@@ -25,7 +29,7 @@ DequeNode* peekRearLD(LinkedDeque* pDeque);
 void deleteLinkedDeque(LinkedDeque* pDeque);
 int isLinkedDequeFull(LinkedDeque* pDeque);
 int isLinkedDequeEmpty(LinkedDeque* pDeque);
-
+void displayLinkedDeque(LinkedDeque* pDeque);
 #endif
 
 #ifndef _COMMON_QUEUE_DEF_
