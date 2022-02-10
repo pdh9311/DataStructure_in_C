@@ -4,9 +4,11 @@ void testcode(ArrayQueue *queue)
 {
 	if (queue == NULL)
 		return ;
+	printf("---------------------------------------\n");
 	printf("front: %d, rear: %d, cur: %d, max: %d\n",
 					queue->front, queue->rear, queue->currentElementCount, queue->maxElementCount);
 	displayArrayQueue(queue);
+	printf("---------------------------------------\n");
 }
 
 int main(void)
