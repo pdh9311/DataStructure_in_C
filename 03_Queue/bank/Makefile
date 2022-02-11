@@ -1,6 +1,6 @@
 NAME = a.out
 
-# CFLAGE = -Wall -Wextra -Werror
+CFLAGE = -Wall -Wextra -Werror
 SRCS = main.c linkeddeque.c simulation.c
 OBJS = $(SRCS:.c=.o)
 

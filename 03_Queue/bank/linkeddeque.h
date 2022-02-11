@@ -44,6 +44,9 @@ int isLinkedDequeEmpty(LinkedDeque* pDeque);
 void displayLinkedDeque(LinkedDeque* pDeque);
 
 /* simulation */
+void insertCustomer(int arrivalTime, int serviceTime, LinkedDeque *pDeque);
+void insertWaitQueue(LinkedDeque *pArrivalQueue, LinkedDeque *pWaitQueue);
+/*
 void insertCustomer(int arrivalTime, int processTime, LinkedDeque *pDeque);
 void processArrival(int currentTime, LinkedDeque *pArrivalQueue, LinkedDeque *pWaitQueue);
 DequeNode* processServiceNodeStart(int currentTime, LinkedDeque *pWaitQueue);
@@ -51,7 +54,7 @@ DequeNode* processServiceNodeEnd(int currentTime, DequeNode *pServiceNode, int *
 void printSimCustomer(int currentTime, SimCustomer customer);
 void printWaitQueueStatus(int currentTime, LinkedDeque *pWaitQueue);
 void printReport(LinkedDeque *pWaitQueue, int serviceUserCount, int totalWaitTime);
-
+*/
 #endif
 
 #ifndef _COMMON_QUEUE_DEF_

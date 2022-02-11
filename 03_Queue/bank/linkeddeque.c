@@ -1,4 +1,4 @@
-#include "simlinkeddeque.h"
+#include "linkeddeque.h"
 
 LinkedDeque* createLinkedDeque()
 {
@@ -99,10 +99,10 @@ DequeNode* deleteRearLD(LinkedDeque* pDeque)
 		printf("%scurrentElementCount is zero!!%s\n", C_RED, C_NC);
 		return (NULL);
 	}
-	del = pDeque->pRearNode;	// q
+	del = pDeque->pRearNode;
 	if (del != NULL)
-		newRear = del->pLLink;	// NULL
-	pDeque->pRearNode = newRear;	//null
+		newRear = del->pLLink;
+	pDeque->pRearNode = newRear;
 	if (newRear != NULL)
 		newRear->pRLink = NULL;
 	pDeque->currentElementCount--;
@@ -170,13 +170,12 @@ void displayLinkedDeque(LinkedDeque* pDeque)
 		return ;
 	}
 	tmp = pDeque->pFrontNode;
-	printf("Front ⇄ ");
+	printf("Front ⇄ \n");
 	while (tmp != NULL) {
-		printf("[arrival:%d, sevice:%d, start:%d, end:%d] ", \
+		printf("[arrival:%d, sevice:%d, start:%d, end:%d] \n", \
 			tmp->customer.arrivalTime, tmp->customer.serviceTime \
 			, tmp->customer.startTime, tmp->customer.endTime);
 		tmp = tmp->pRLink;
 	}
-	printf("⇄ Rear");
-	// printf("\n");
+	printf("⇄ Rear\n\n");
 }
