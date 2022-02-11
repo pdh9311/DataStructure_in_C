@@ -1,16 +1,24 @@
-NAME = a.out
+.SUFFIXES : .c .o
+SRCS			=	main_bank.c en_queue.c de_queue.c \
+					creat_sim.c time_check.c
 
-CFLAGE = -Wall -Wextra -Werror
-SRCS = main.c linkeddeque.c simulation.c
-OBJS = $(SRCS:.c=.o)
+OBJS			=	$(SRCS:.c=.o)
+
+CC				=	gcc
+RM				=	rm -f
+CFLAGS			=	-Wall -Wextra -Werror -g
+
+NAME			=	test
+
+all:			$(NAME)
 
 $(NAME) : $(OBJS)
-	@gcc $(CFLAGE) $(OBJS) -I./
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
-.c.o :
-	@gcc $(CFLAGE) -c $? -o $@
+clean:
+				$(RM) $(OBJS) $(OBJS_B)
 
-clean :
-	@rm -rf *.o
-	@rm -rf a.out
+fclean:			clean
+				$(RM) $(NAME)
 
+re:				fclean $(NAME)
