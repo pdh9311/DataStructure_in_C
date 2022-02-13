@@ -31,7 +31,7 @@ typedef struct SimCustomerType
 
 typedef struct queue_node_Type
 {
-	int sim_count;
+	int sim_count;			// node 개수
 	SimCustomer_t* head;
 	SimCustomer_t* tail;
 } queue_node_t;

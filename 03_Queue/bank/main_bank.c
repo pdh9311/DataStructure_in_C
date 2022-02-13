@@ -30,6 +30,8 @@ void print_lst(queue_node_t *node)
 
 int main(void)
 {
+	srand(time(NULL));
+
 	queue_node_t arrival;
 	queue_node_t deposit;
 	queue_node_t transfe;
@@ -45,7 +47,6 @@ int main(void)
 	// size_t j = 0;
 	size_t action = 0;
 
-	srand(time(NULL));
 
 	arrival.head = NULL;
 	arrival.tail = NULL;

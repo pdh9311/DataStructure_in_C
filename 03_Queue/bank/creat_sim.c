@@ -28,7 +28,6 @@ SimCustomer_t* creat_sim(queue_node_t* node)
 
 	new = (SimCustomer_t*)malloc(sizeof(SimCustomer_t));
 	if (new == NULL) {
-		printf("심 생성에 실패했습니다.\n");
 		return NULL;
 	}
 	new->servise_time.hour = 0;
