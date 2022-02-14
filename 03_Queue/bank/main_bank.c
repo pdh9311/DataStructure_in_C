@@ -1,164 +1,121 @@
 #include "bank_test.h"
 
-void print_service(queue_node_t *node)
-{
-	SimCustomer_t *cur;
-
-	cur = node->head;
-	while (cur != NULL) {
-		printf("order_count: %d\t", cur->order_count);
-		printf("arrival_time: %d:%d\t", cur->arrival_time.hour, cur->arrival_time.minute);
-		printf("service_time: %d:%d\n", cur->servise_time.hour, cur->servise_time.minute);
-		cur = cur->next;
-	}
-}
 
 void print_lst(queue_node_t *node)
 {
 	SimCustomer_t *cur;
 
 	cur = node->head;
-	printf("------------------------------------------\n");
-	printf("| ");
+	if (node->head != NULL) {
+		if (node->head->service == DEPOSIT_E)
+			printf("deposit");
+		else if (node->head->service == WITHDRAW_E)
+			printf("withdraw");
+		else if (node->head->service == TRANSFE_E)
+			printf("transfe");
+		else if (node->head->service == CONSULT_E)
+			printf("consult");
+	}
+	printf(" ----------------------------------\n");
 	while (cur != NULL) {
-		printf("%d ", cur->order_count);
+		printf("%2d ", cur->order_count);
+		printf("[%d] ", cur->service);
+		printf("(arrival %2d : %2d) ", cur->arrival_time.hour, cur->arrival_time.minute);
+		printf("(start %2d : %2d) ", cur->service_start_time.hour, cur->service_start_time.minute);
+		printf("(end %2d : %2d) ", cur->service_end_time.hour, cur->service_end_time.minute);
+		printf("(wait %2d : %2d)\n", cur->wait_time.hour, cur->wait_time.minute);
 		cur = cur->next;
 	}
-	printf("|\n");
-	printf("------------------------------------------\n");
+	printf("------------------------------------------\n\n");
+}
+
+void print_avg(queue_node_t *node)
+{
+	double avg = (double)node->sim_total_wait / node->sim_count;
+	printf("wait time : %f", avg);
+	if (avg > 30) {
+		printf("\n불만족\n");
+	}
+	else {
+		printf("\n만족\n");
+	}
 }
 
 int main(void)
 {
 	srand(time(NULL));
 
-	queue_node_t arrival;
-	queue_node_t deposit;
-	queue_node_t transfe;
-	queue_node_t consult;
-	queue_node_t withdraw;
-	hour_minute_t count;
-	SimCustomer_t* node;
-	int servise_num = 0;
-	int print_temp[256] = {0, };
-	int selec_next = 0;
-	int sum = 0;
-	size_t i = 0;
-	// size_t j = 0;
-	size_t action = 0;
+	queue_node_t* arrival_queue = NULL;
+	queue_node_t* deposit_queue= NULL;
+	queue_node_t* withdraw_queue = NULL;
+	queue_node_t* transfe_queue = NULL;
+	queue_node_t* consult_queue = NULL;
 
+	SimCustomer_t* sim = NULL;
+	hour_minute_t time_t;
 
-	arrival.head = NULL;
-	arrival.tail = NULL;
-	arrival.sim_count = 0;
+	SimCustomer_t* cur;
+	SimCustomer_t* tmp;
+	int order = 0;
+	arrival_queue = creat_simqueue();
 
-	deposit.head = NULL;
-	deposit.tail = NULL;
-	deposit.sim_count = 0;
+	// arrival
 
-	transfe.head = NULL;
-	transfe.tail = NULL;
-	transfe.sim_count = 0;
-
-	withdraw.head = NULL;
-	withdraw.tail = NULL;
-	withdraw.sim_count = 0;
-
-	consult.head = NULL;
-	consult.tail = NULL;
-	consult.sim_count = 0;
-
+	time_t.hour = 9;
+	time_t.minute = 0;
 	while (1)
 	{
-		if ((node = creat_sim(&arrival)) == NULL)
-		{
+		time_t.minute += ((rand() % 11) + 10);
+		if (time_t.minute / 60 > 0) {
+			time_t.hour += 1;
+			time_t.minute %= 60;
+		}
+		if (time_t.hour == 15 && time_t.minute > 30){
 			break;
 		}
-		else {
-			arrival.tail = node;
-		}
+		order += 1;
+		sim = creat_sim(time_t, order, rand() % 4);
+		en_queue(arrival_queue, sim);
 	}
-	while (1){
-		servise_num = (rand() % 4);
-		if (servise_num == DEPOSIT_E) {
-			servise_en_queue(&arrival, &deposit);
-			if (arrival.sim_count == 0) {
-				break;
-			}
+	print_lst(arrival_queue);
+	printf("\n");
+
+	// wait and service
+
+
+	deposit_queue = creat_simqueue();
+	withdraw_queue = creat_simqueue();
+	transfe_queue = creat_simqueue();
+	consult_queue = creat_simqueue();
+
+
+	cur = arrival_queue->head;
+	while (cur != NULL) {
+		tmp = cur->next;
+		if (arrival_queue->head->service == DEPOSIT_E) {
+			account_wait(deposit_queue, arrival_queue, (rand() % 28) + 20);
+		} else if (arrival_queue->head->service == WITHDRAW_E) {
+			account_wait(withdraw_queue, arrival_queue, (rand() % 31) + 30);
+		} else if (arrival_queue->head->service == TRANSFE_E) {
+			account_wait(transfe_queue, arrival_queue, (rand() % 33) + 20);
+		} else if (arrival_queue->head->service == CONSULT_E) {
+			account_wait(consult_queue, arrival_queue, (rand() % 45) + 40);
 		}
-		else if (servise_num == WITHDRAW_E) {
-			servise_en_queue(&arrival, &withdraw);
-			if (arrival.sim_count == 0) {
-				break;
-			}
-		}
-		else if (servise_num == TRANSFE_E) {
-			servise_en_queue(&arrival, &transfe);
-			if (arrival.sim_count == 0) {
-				break;
-			}
-		}
-		else if (servise_num == CONSULT_E) {
-			servise_en_queue(&arrival, &consult);
-			if (arrival.sim_count == 0) {
-				break;
-			}
-		}
+		cur = tmp;
 	}
-print_lst(&deposit);
-print_service(&deposit);
+	print_lst(arrival_queue);
+	print_lst(deposit_queue);
+	print_lst(withdraw_queue);
+	print_lst(transfe_queue);
+	print_lst(consult_queue);
 
-print_lst(&withdraw);
-print_service(&withdraw);
-
-print_lst(&transfe);
-print_service(&transfe);
-
-print_lst(&consult);
-print_service(&consult);
-	count.hour = 9;
-	count.minute = 0;
-	while (1) {
-		i = 0;
-		scanf("%d", &selec_next);
-		system("clear");
-
-		if (selec_next == 1) {
-			action = 0;
-			sum = 0;
-			while (action < 30) {
-				if (print_check(&count, &deposit) == TRUE) {
-					print_temp[0] = deposit.head->order_count;
-				}
-				if (print_check(&count, &withdraw) == TRUE) {
-					print_temp[1] = withdraw.head->order_count;
-				}
-				if (print_check(&count, &transfe) == TRUE) {
-					print_temp[2] = transfe.head->order_count;
-				}
-				if (print_check(&count, &consult) == TRUE) {
-					print_temp[3] = consult.head->order_count;
-				}
-				++count.minute;
-				if (count.minute % 60 == 0) {
-					count.minute = 0;
-					++sum;
-					count.hour += sum;
-				}
-				++action;
-			}
-			printf("                       %d : %d\n", count.hour, count.minute);
-			printf("  -------------------------------------------------\n");
-			printf("  |   입금   |   출금   |  계좌이체  |  금융상담  |\n");
-			printf("  -------------------------------------------------\n");
-			printf("      %d번        %d번           %d번        %d번\n", print_temp[0], print_temp[1], print_temp[2], print_temp[3]);
-			printf("  -------------------------------------------------\n");
-			printf("\n");
-			if (count.hour == 16 && count.minute == 0) {
-				break;
-			}
-		}
-
-	}
+	printf("deposit ");
+	print_avg(deposit_queue);
+	printf("withdraw ");
+	print_avg(withdraw_queue);
+	printf("transfe ");
+	print_avg(transfe_queue);
+	printf("consult ");
+	print_avg(consult_queue);
 
 }

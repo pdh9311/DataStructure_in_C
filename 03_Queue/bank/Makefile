@@ -1,6 +1,6 @@
 .SUFFIXES : .c .o
 SRCS			=	main_bank.c en_queue.c de_queue.c \
-					creat_sim.c time_check.c
+					creat_sim.c account_wait.c
 
 OBJS			=	$(SRCS:.c=.o)
 

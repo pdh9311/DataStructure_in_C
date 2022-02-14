@@ -2,43 +2,49 @@
 
 /* sim이 하나씩 생성 */
 
-int creat_time(queue_node_t* node, SimCustomer_t* new_sim)
+queue_node_t* creat_simqueue()
 {
-	size_t count = 0;
+	queue_node_t* ptr = NULL;
 
-	new_sim->arrival_time.hour = node->tail->arrival_time.hour;
-	new_sim->arrival_time.minute = (rand() % 20) + 10;
-	new_sim->arrival_time.minute += node->tail->arrival_time.minute;
-
-	if (new_sim->arrival_time.minute >= 60) {
-		new_sim->arrival_time.minute -= 60;
-		++count;
-		new_sim->arrival_time.hour += count;
-	}
-	if (new_sim->arrival_time.hour >= 15 && new_sim->arrival_time.minute > 30) {
-		return FALSE;
-	}
-	return TRUE;
-}
-
-SimCustomer_t* creat_sim(queue_node_t* node)
-{
-	SimCustomer_t* new = NULL;
-	size_t size = size;
-
-	new = (SimCustomer_t*)malloc(sizeof(SimCustomer_t));
-	if (new == NULL) {
+	ptr = malloc(sizeof(queue_node_t));
+	if (ptr == NULL)
+	{
 		return NULL;
 	}
-	new->servise_time.hour = 0;
-	new->servise_time.minute = 0;
-	new->next = NULL;
-	new->prev = NULL;
-	if(arrival_en_queue(node, new) == FALSE) {
-		free(new);
-		new = NULL;
-		return (NULL);
+
+	ptr->sim_count = 0;
+	ptr->head = NULL;
+	ptr->tail = NULL;
+	ptr->sim_total_wait = 0;
+
+	return ptr;
+}
+
+SimCustomer_t* creat_sim(hour_minute_t time, int order, int service)
+{
+	SimCustomer_t* ptr = NULL;
+
+	ptr = malloc(sizeof(SimCustomer_t));
+	if (ptr == NULL)
+	{
+		return NULL;
 	}
-	node->sim_count++;
-	return new;
+
+	ptr->arrival_time.hour = time.hour;
+	ptr->arrival_time.minute = time.minute;
+	ptr->order_count = order;
+	ptr->service = service;
+
+	ptr->next = NULL;
+	ptr->prev = NULL;
+
+	ptr->service_start_time.hour = 0;
+	ptr->service_start_time.minute = 0;
+	ptr->service_end_time.hour = 0;
+	ptr->service_end_time.minute = 0;
+	ptr->wait_time.hour = 0;
+	ptr->wait_time.minute = 0;
+
+	return ptr;
+
 }
