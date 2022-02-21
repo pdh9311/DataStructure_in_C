@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   bintree.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: seseo <seseo@student.42seoul.kr>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 16:07:31 by seseo             #+#    #+#             */
-/*   Updated: 2022/02/21 16:53:26 by seseo            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "bintree.h"
 #include "linkeddeque.h"
 
@@ -41,7 +29,6 @@ BinTreeNode	*getRootNodeBT(BinTree *pBinTree)
 	return (NULL);
 }
 
-// 트리 생성시 root 주소가 무조건 있어야하므로 따로 NULL 체크 안함.
 BinTreeNode	*insertLeftChildNodeBT(BinTreeNode *pParentNode, BinTreeNode element)
 {
 	BinTreeNode	*pChildNode;
@@ -88,14 +75,12 @@ BinTreeNode	*getRightChildNodeBT(BinTreeNode *pNode)
 	return (pNode->pRightChild);
 }
 
-// 후위 순회(Postorder Traversal)로 트리 삭제.
 void	deleteBinTree(BinTree *pBinTree)
 {
 	deleteBinTreeNode(getRootNodeBT(pBinTree));
 	free(pBinTree);
 }
 
-// 후위 순회로 노드 삭제 or 자식 노드가 없을 경우에만 삭제?
 void	deleteBinTreeNode(BinTreeNode *pNode)
 {
 	if (pNode == NULL)
@@ -367,7 +352,6 @@ void	printBinTree(BinTree *pBinTree)
 	tmp = maxLevel;
 	while (--tmp > 1)
 		maxSpace = maxSpace * 2 + 1;
-	// printf("maxSpace : %d\n", maxSpace);
 	pDeque = createLinkedDeque();
 	pBinTreeNode = *pBinTree->pRootNode;
 	pDequeNode.pNode = pBinTreeNode;
@@ -381,7 +365,6 @@ void	printBinTree(BinTree *pBinTree)
 		{
 			printf("\n");
 			maxSpace /= 2;
-			// printf("maxSpace : %d\n", maxSpace);
 			printBlank(maxSpace);
 			printCount = 0;
 			currentLevel++;
