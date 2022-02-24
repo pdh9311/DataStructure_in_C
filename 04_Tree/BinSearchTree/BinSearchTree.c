@@ -1,7 +1,7 @@
 # include "linkeddeque.h"
 
 BST* makeBST(BSTNode rootNode) {
-	BST *pBST;
+	BST *pBST = NULL;
 
 	pBST = (BST *)malloc(sizeof(BST));
 	if (pBST == NULL)
@@ -19,7 +19,7 @@ BST* makeBST(BSTNode rootNode) {
 }
 
 BSTNode* initBSTNode(int key) {
-	BSTNode *newNode;
+	BSTNode *newNode = NULL;
 
 	newNode = (BSTNode *)malloc(sizeof(BSTNode));
 	if (newNode == NULL)
@@ -37,7 +37,7 @@ BSTNode* getRootNodeBST(BST* pBST) {
 }
 
 BSTNode* insertLeftChildNodeBST(BSTNode* pParentNode, BSTNode element) {
-	BSTNode *addNode;
+	BSTNode *addNode = NULL;
 
 	if (pParentNode == NULL || pParentNode->pLeftChild != NULL)
 		return (NULL);
@@ -52,7 +52,7 @@ BSTNode* insertLeftChildNodeBST(BSTNode* pParentNode, BSTNode element) {
 }
 
 BSTNode* insertRightChildNodeBST(BSTNode* pParentNode, BSTNode element) {
-	BSTNode *addNode;
+	BSTNode *addNode = NULL;
 
 	if (pParentNode == NULL || pParentNode->pRightChild != NULL)
 		return (NULL);
@@ -79,12 +79,16 @@ BSTNode* getRightChildNodeBST(BSTNode* pNode) {
 }
 
 void deleteBinTree(BST* pBST) {
+	if (pBST == NULL) {
+		printf("please create!");
+		return ;
+	}
 	deleteBinTreeNode(pBST->pRootNode);
 	free(pBST);
 }
 
 void deleteBinTreeNode(BSTNode* pNode) {
-	if(pNode == NULL )
+	if(pNode == NULL)
 		return ;
 	deleteBinTreeNode(pNode->pLeftChild);
 	deleteBinTreeNode(pNode->pRightChild);
@@ -116,7 +120,7 @@ void postorderTraversal(BSTNode *pNode) {
 }
 
 static BSTNode* insertPositionBST(BSTNode *pParentNode, int position, BSTNode element) {
-	BSTNode *addNode;
+	BSTNode *addNode = NULL;
 
 	addNode = initBSTNode(element.key);
 	if (addNode == NULL)
@@ -131,9 +135,13 @@ static BSTNode* insertPositionBST(BSTNode *pParentNode, int position, BSTNode el
 
 
 BSTNode* insertNodeBST(BST *pBST, BSTNode element) {
-	BSTNode *node;
-	BSTNode *parent;
+	BSTNode *node = NULL;
+	BSTNode *parent = NULL;
 
+	if (pBST == NULL) {
+		printf("please create!\n");
+		return (NULL);
+	}
 	node = pBST->pRootNode;
 	while (1) {
 		parent = node;
@@ -149,12 +157,13 @@ BSTNode* insertNodeBST(BST *pBST, BSTNode element) {
 				return (insertPositionBST(parent, RIGHT, element));
 		}
 	}
+	return (NULL);
 }
 
 static BSTNode *changeNode(BSTNode *delNode, BSTNode *node) {
-	BSTNode *ret;
-	BSTNode *parent;
-	BSTNode *tmp;
+	BSTNode *ret = NULL;
+	BSTNode *parent = NULL;
+	BSTNode *tmp = NULL;
 
 	while (1) {
 		if (node->pLeftChild == NULL)
@@ -163,13 +172,15 @@ static BSTNode *changeNode(BSTNode *delNode, BSTNode *node) {
 		node = node->pLeftChild;
 	}
 	ret = node;
-	parent->pLeftChild = node->pRightChild;
-	ret->pRightChild = NULL;
+	if (parent != NULL && node != NULL) {
+		parent->pLeftChild = node->pRightChild;
+		ret->pRightChild = NULL;
+	}
 	return (ret);
 }
 
 static void deletePosition(BSTNode *parent, BSTNode *node, int position) {
-	BSTNode *tmp;
+	BSTNode *tmp = NULL;
 
 	if (node->pLeftChild == NULL && node->pRightChild == NULL) {
 		if (position == LEFT)
@@ -193,7 +204,8 @@ static void deletePosition(BSTNode *parent, BSTNode *node, int position) {
 		free(node);
 	} else {
 		tmp = changeNode(node, node->pRightChild);
-		tmp->pRightChild = node->pRightChild;
+		if (tmp->key != node->pRightChild->key)
+			tmp->pRightChild = node->pRightChild;
 		tmp->pLeftChild = node->pLeftChild;
 		parent->pLeftChild = tmp;
 		free(node);
@@ -202,10 +214,14 @@ static void deletePosition(BSTNode *parent, BSTNode *node, int position) {
 
 
 void deleteNodeBST(BST *pBST, BSTNode element) {
-	BSTNode *parent;
-	BSTNode *node;
+	BSTNode *parent = NULL;
+	BSTNode *node = NULL;
 	BSTNode *tmp = NULL;
 
+	if (pBST == NULL) {
+		printf("please create!\n");
+		return ;
+	}
 	node = pBST->pRootNode;
 	while (1) {
 		parent = node;
