@@ -99,10 +99,10 @@ DequeNode* deleteRearLD(LinkedDeque* pDeque)
 		printf("%scurrentElementCount is zero!!%s\n", C_RED, C_NC);
 		return (NULL);
 	}
-	del = pDeque->pRearNode;	// q
+	del = pDeque->pRearNode;
 	if (del != NULL)
-		newRear = del->pLLink;	// NULL
-	pDeque->pRearNode = newRear;	//null
+		newRear = del->pLLink;
+	pDeque->pRearNode = newRear;
 	if (newRear != NULL)
 		newRear->pRLink = NULL;
 	pDeque->currentElementCount--;
