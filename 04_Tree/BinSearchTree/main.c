@@ -28,10 +28,8 @@ void defaultTree(BST **pBST) {
 	  / \   /
 	 6  14 22
 */
-/*
 int main(void) {
 	BST *pBST = NULL;
-	BSTNode rootNode;
 	BSTNode node;
 	int input;
 
@@ -39,7 +37,7 @@ int main(void) {
 		printf("| 0: 종료\t| 1: default\t| 2: create\t|\n");
 		printf("| 3: insert\t| 4: delete\t| 5: clear\t|\n");
 		printf("| 6: 전위순회\t| 7: 중위순회\t| 8: 후위순회\t|\n >> ");
-		scanf("%d", &input);
+		scanf("%d", &input); fflush(stdin);
 		switch(input) {
 			case 0:
 				exit(0);
@@ -57,24 +55,25 @@ int main(void) {
 					break;
 				}
 				printf("root key input > ");
-				scanf("%d", &node.key);
+				scanf("%d", &node.key); fflush(stdin);
 				pBST = makeBST(node);
 				printBinTree(pBST);
 				break ;
 			case 3:
 				printf("insert key input > ");
-				scanf("%d", &node.key);
+				scanf("%d", &node.key); fflush(stdin);
 				insertNodeBST(pBST, node);
 				printBinTree(pBST);
 				break ;
 			case 4:
 				printf("delete key input > ");
-				scanf("%d", &node.key);
+				scanf("%d", &node.key); fflush(stdin);
 				deleteNodeBST(pBST, node);
 				printBinTree(pBST);
 				break ;
 			case 5:
 				deleteBinTree(pBST);
+				pBST = NULL;
 				break ;
 			case 6:
 				if (pBST == NULL) {
@@ -102,7 +101,6 @@ int main(void) {
 	}
 	return (0);
 }
-*/
 
 /*
 		        30
@@ -113,6 +111,7 @@ int main(void) {
 	  / \   /
 	 6  14 22
 */
+/*
 int main(void) {
 	BST *pBST = NULL;
 	BSTNode rootNode;
@@ -140,7 +139,8 @@ int main(void) {
 	insertNodeBST(pBST, node);
 	node.key = 46;
 	insertNodeBST(pBST, node);
-	printBinTree(pBST);	printf("\n\n");
+	printBinTree(pBST);
+	printf("\n\n");
 
 
 	node.key = 3;
@@ -153,20 +153,20 @@ int main(void) {
 	printBinTree(pBST);
 	printf("\n\n");
 
-	// node.key = 5;
-	// insertNodeBST(pBST, node);
-	// printBinTree(pBST);
-	// printf("\n\n");
+	node.key = 5;
+	insertNodeBST(pBST, node);
+	printBinTree(pBST);
+	printf("\n\n");
 
-	// node.key = 7;
-	// insertNodeBST(pBST, node);
-	// printBinTree(pBST);
-	// printf("\n\n");
+	node.key = 7;
+	insertNodeBST(pBST, node);
+	printBinTree(pBST);
+	printf("\n\n");
 
-	// node.key = 10;
-	// deleteNodeBST(pBST, node);
-	// printBinTree(pBST);
-	// printf("\n\n");
+	node.key = 10;
+	deleteNodeBST(pBST, node);
+	printBinTree(pBST);
+	printf("\n\n");
 
 	// preorderTraversal(pBST->pRootNode);
 	// printf("\n");
@@ -176,6 +176,7 @@ int main(void) {
 	// printf("\n");
 	deleteBinTree(pBST);
 
-	system("leaks a.out");
+	// system("leaks a.out");
 	return (0);
 }
+*/

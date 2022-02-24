@@ -160,10 +160,9 @@ BSTNode* insertNodeBST(BST *pBST, BSTNode element) {
 	return (NULL);
 }
 
-static BSTNode *changeNode(BSTNode *delNode, BSTNode *node) {
+static BSTNode *changeNode(BSTNode *node) {
 	BSTNode *ret = NULL;
 	BSTNode *parent = NULL;
-	BSTNode *tmp = NULL;
 
 	while (1) {
 		if (node->pLeftChild == NULL)
@@ -203,7 +202,7 @@ static void deletePosition(BSTNode *parent, BSTNode *node, int position) {
 			parent->pRightChild = tmp;
 		free(node);
 	} else {
-		tmp = changeNode(node, node->pRightChild);
+		tmp = changeNode(node->pRightChild);
 		if (tmp->key != node->pRightChild->key)
 			tmp->pRightChild = node->pRightChild;
 		tmp->pLeftChild = node->pLeftChild;
@@ -216,7 +215,6 @@ static void deletePosition(BSTNode *parent, BSTNode *node, int position) {
 void deleteNodeBST(BST *pBST, BSTNode element) {
 	BSTNode *parent = NULL;
 	BSTNode *node = NULL;
-	BSTNode *tmp = NULL;
 
 	if (pBST == NULL) {
 		printf("please create!\n");
@@ -227,12 +225,20 @@ void deleteNodeBST(BST *pBST, BSTNode element) {
 		parent = node;
 		if (node->key > element.key) {
 			node = node->pLeftChild;
+			if (node == NULL) {
+				printf("not found!\n");
+				return ;
+			}
 			if (node->key == element.key) {
 				deletePosition(parent, node, LEFT);	// parent의 왼쪽 node가 삭제 될거다.
 				break ;
 			}
 		} else {
 			node = node->pRightChild;
+			if (node == NULL) {
+				printf("not found!\n");
+				return ;
+			}
 			if (node->key == element.key) {
 				deletePosition(parent, node, RIGHT);	// parent의 오른쪽 node가 삭제 될거다.
 				break ;
@@ -253,6 +259,8 @@ static int	getMaxLevel(BST *pBinTree)
 
 	if (pBinTree->pRootNode == NULL)
 		return (0);
+	if (pBinTree->pRootNode->pLeftChild == NULL && pBinTree->pRootNode->pRightChild == NULL)
+		return (1);
 	pDeque = createLinkedDeque();
 	pBinTreeNode = *pBinTree->pRootNode;
 	pDequeNode.pNode = pBinTreeNode;
