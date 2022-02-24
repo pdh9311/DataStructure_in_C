@@ -163,10 +163,8 @@ static BSTNode *changeNode(BSTNode *delNode, BSTNode *node) {
 		node = node->pLeftChild;
 	}
 	ret = node;
-	if (node->pRightChild != NULL) {
-		parent->pLeftChild = node->pRightChild;
-		ret->pRightChild = NULL;
-	}
+	parent->pLeftChild = node->pRightChild;
+	ret->pRightChild = NULL;
 	return (ret);
 }
 

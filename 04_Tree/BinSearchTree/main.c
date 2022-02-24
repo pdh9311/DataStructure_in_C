@@ -28,18 +28,24 @@ int main(void) {
 	node.key = 34;	insertNodeBST(pBST, node);
 	node.key = 46;	insertNodeBST(pBST, node);
 
-	printBinTree(pBST);
-	printf("\n\n");
+	printBinTree(pBST);	printf("\n\n");
 
 	node.key = 20;	deleteNodeBST(pBST, node);
-	printBinTree(pBST);
+	printBinTree(pBST);	printf("\n\n");
 
-	// preorderTraversal(pBST->pRootNode);
-	// printf("\n");
-	// inorderTraversal(pBST->pRootNode);
-	// printf("\n");
-	// postorderTraversal(pBST->pRootNode);
-	// printf("\n");
-	// deleteBinTree(pBST);
+	node.key = 28;	insertNodeBST(pBST, node);
+	printBinTree(pBST);	printf("\n\n");
+
+	node.key = 24;	deleteNodeBST(pBST, node);
+	printBinTree(pBST);	printf("\n\n");
+
+	preorderTraversal(pBST->pRootNode);
+	printf("\n");
+	inorderTraversal(pBST->pRootNode);
+	printf("\n");
+	postorderTraversal(pBST->pRootNode);
+	printf("\n");
+	deleteBinTree(pBST);
+	system("leaks a.out");
 	return (0);
 }
