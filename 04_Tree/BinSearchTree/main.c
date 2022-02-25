@@ -46,7 +46,7 @@ int main(void) {
 					break ;
 				}
 				defaultTree(&pBST);
-				// printBinTree(pBST);
+				printBinTree(pBST);
 				break ;
 			case 2:
 				if (pBST != NULL) {
@@ -56,19 +56,19 @@ int main(void) {
 				printf("root key input > ");
 				scanf("%d", &node.key); fflush(stdin);
 				pBST = makeBST(node);
-				// printBinTree(pBST);
+				printBinTree(pBST);
 				break ;
 			case 3:
 				printf("insert key input > ");
 				scanf("%d", &node.key); fflush(stdin);
 				insertNodeBST(pBST, node);
-				// printBinTree(pBST);
+				printBinTree(pBST);
 				break ;
 			case 4:
 				printf("delete key input > ");
 				scanf("%d", &node.key); fflush(stdin);
 				deleteNodeBST(pBST, node);
-				// printBinTree(pBST);
+				printBinTree(pBST);
 				break ;
 			case 5:
 				deleteBinTree(pBST);
