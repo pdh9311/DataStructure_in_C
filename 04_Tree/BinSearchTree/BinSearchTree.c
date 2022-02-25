@@ -248,53 +248,32 @@ void deleteNodeBST(BST *pBST, BSTNode element) {
 }
 
 ////////////////////// print start //////////////////////
-static int	getMaxLevel(BST *pBinTree)
+static void getMaxLevelRecSub(BSTNode *pParentNode, int *current, int *max)
 {
-	int	maxLevel = 0;
-	int	currentLevel = 0;
-	LinkedDeque	*pDeque;
-	DequeNode	pDequeNode;
-	DequeNode	*pCurNode;
-	BSTNode		pBinTreeNode;
-
-	if (pBinTree->pRootNode == NULL)
-		return (0);
-	if (pBinTree->pRootNode->pLeftChild == NULL && pBinTree->pRootNode->pRightChild == NULL)
-		return (1);
-	pDeque = createLinkedDeque();
-	pBinTreeNode = *pBinTree->pRootNode;
-	pDequeNode.pNode = pBinTreeNode;
-	insertRearLD(pDeque, pDequeNode);
-	while (isLinkedDequeEmpty(pDeque) != TRUE)
+	if (pParentNode == NULL)
 	{
-		pCurNode = peekRearLD(pDeque);
-		if (pCurNode->pNode.visited == 0)
-			currentLevel++;
-		if (2 - (!pCurNode->pNode.pLeftChild + !pCurNode->pNode.pRightChild) == pCurNode->pNode.visited)
-		{
-			if (currentLevel > maxLevel)
-				maxLevel = currentLevel;
-			currentLevel--;
-			free(deleteRearLD(pDeque));
-		}
-		else if (pCurNode->pNode.visited == 0 && pCurNode->pNode.pLeftChild)
-		{
-			pCurNode->pNode.visited++;
-			pDequeNode.pNode = *pCurNode->pNode.pLeftChild;
-			insertRearLD(pDeque, pDequeNode);
-		}
-		else
-		{
-			pCurNode->pNode.visited++;
-			pDequeNode.pNode = *pCurNode->pNode.pRightChild;
-			insertRearLD(pDeque, pDequeNode);
-		}
+		*current -= 1;
+		return ;
 	}
-	deleteLinkedDeque(pDeque);
-	return (maxLevel);
+	if (*current > *max)
+		*max = *current;
+	*current = *current + 1;
+	getMaxLevelRecSub(pParentNode->pLeftChild, current, max);
+	*current = *current + 1;
+	getMaxLevelRecSub(pParentNode->pRightChild, current, max);
+	*current -= 1;
 }
 
-static int	seseo_pow(int	d)
+int getMaxLevel(BST *pBinTree)
+{
+	int	current = 1;
+	int	max = 0;
+
+	getMaxLevelRecSub(pBinTree->pRootNode, &current, &max);
+	return (max);
+}
+
+static int	getPrintCount(int	d)
 {
 	int	i;
 
@@ -338,7 +317,7 @@ void	printBinTree(BST *pBinTree)
 	printCount++;
 	while (currentLevel < maxLevel && isLinkedDequeEmpty(pDeque) == FALSE)
 	{
-		if (printCount == seseo_pow(currentLevel))
+		if (printCount == getPrintCount(currentLevel))
 		{
 			printf("\n");
 			maxSpace /= 2;
