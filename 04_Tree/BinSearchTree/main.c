@@ -34,9 +34,8 @@ int main(void) {
 	int input;
 
 	while (1) {
-		printf("| 0: 종료\t| 1: default\t| 2: create\t|\n");
-		printf("| 3: insert\t| 4: delete\t| 5: clear\t|\n");
-		printf("| 6: 전위순회\t| 7: 중위순회\t| 8: 후위순회\t|\n >> ");
+		printf("| 0: 종료\t| 1: default\t| 2: create\t| 3: insert\t| 4: delete | \n");
+		printf("| 5: clear\t| 6: 전위순회\t| 7: 중위순회\t| 8: 후위순회\t| 9: display |\n >> ");
 		scanf("%d", &input); fflush(stdin);
 		switch(input) {
 			case 0:
@@ -47,7 +46,7 @@ int main(void) {
 					break ;
 				}
 				defaultTree(&pBST);
-				printBinTree(pBST);
+				// printBinTree(pBST);
 				break ;
 			case 2:
 				if (pBST != NULL) {
@@ -57,19 +56,19 @@ int main(void) {
 				printf("root key input > ");
 				scanf("%d", &node.key); fflush(stdin);
 				pBST = makeBST(node);
-				printBinTree(pBST);
+				// printBinTree(pBST);
 				break ;
 			case 3:
 				printf("insert key input > ");
 				scanf("%d", &node.key); fflush(stdin);
 				insertNodeBST(pBST, node);
-				printBinTree(pBST);
+				// printBinTree(pBST);
 				break ;
 			case 4:
 				printf("delete key input > ");
 				scanf("%d", &node.key); fflush(stdin);
 				deleteNodeBST(pBST, node);
-				printBinTree(pBST);
+				// printBinTree(pBST);
 				break ;
 			case 5:
 				deleteBinTree(pBST);
@@ -95,6 +94,9 @@ int main(void) {
 					break;
 				}
 				postorderTraversal(pBST->pRootNode);
+				break ;
+			case 9:
+				printBinTree(pBST);
 				break ;
 		}
 		printf("\n\n");
@@ -139,33 +141,33 @@ int main(void) {
 	insertNodeBST(pBST, node);
 	node.key = 46;
 	insertNodeBST(pBST, node);
-	printBinTree(pBST);
+	// printBinTree(pBST);
 	printf("\n\n");
 
 
 	node.key = 3;
 	insertNodeBST(pBST, node);
-	printBinTree(pBST);
+	// printBinTree(pBST);
 	printf("\n\n");
 
 	node.key = 4;
 	insertNodeBST(pBST, node);
-	printBinTree(pBST);
+	// printBinTree(pBST);
 	printf("\n\n");
 
 	node.key = 5;
 	insertNodeBST(pBST, node);
-	printBinTree(pBST);
+	// printBinTree(pBST);
 	printf("\n\n");
 
 	node.key = 7;
 	insertNodeBST(pBST, node);
-	printBinTree(pBST);
+	// printBinTree(pBST);
 	printf("\n\n");
 
 	node.key = 10;
 	deleteNodeBST(pBST, node);
-	printBinTree(pBST);
+	// printBinTree(pBST);
 	printf("\n\n");
 
 	// preorderTraversal(pBST->pRootNode);
