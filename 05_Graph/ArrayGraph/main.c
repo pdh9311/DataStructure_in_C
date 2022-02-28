@@ -4,7 +4,7 @@ int main(void)
 {
 	ArrayGraph *graph = NULL;
 
-	graph = createArrayGraph(10);
+	graph = createArrayGraph(1000);
 
 	displayArrayGraph(graph);
 	return (0);

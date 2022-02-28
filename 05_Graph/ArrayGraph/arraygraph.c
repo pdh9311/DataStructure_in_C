@@ -51,7 +51,7 @@ ArrayGraph* createArrayGraph(int maxVertexCount)
 			return (NULL);
 		}
 	}
-	initTwoDimension(graph);
+	// initTwoDimension(graph);
 	// vertex 저장 1차원 array
 	graph->pVertex = (int *)malloc(sizeof(int) * maxVertexCount);
 	if (graph->pVertex == NULL)
@@ -135,13 +135,17 @@ int removeEdgeAG(ArrayGraph* pGraph, int fromVertexID, int toVertexID)
 // 그래프 정보 출력
 void displayArrayGraph(ArrayGraph* pGraph)
 {
+	int i, j;
+
 	// maxVertexCount -> currentVertexCount
-	for (int i = 0; i < pGraph->maxVertexCount; i++)
+	for (i = 0; i < pGraph->maxVertexCount; i++)
 	{
-		for (int j = 0; j < pGraph->maxVertexCount; j++)
+		for (j = 0; j < pGraph->maxVertexCount; j++)
 		{
-			printf("%d ", pGraph->ppAdjEdge[i][j]);
+			if (pGraph->ppAdjEdge[i][j] != 0)
+				printf("%d ", pGraph->ppAdjEdge[i][j]);
 		}
-		printf("\n");
+		if (pGraph->ppAdjEdge[i][j] != 0)
+			printf("\n");
 	}
 }
