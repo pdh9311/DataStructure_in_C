@@ -1,8 +1,8 @@
 #ifndef _GRAPH_ADJLIST_
 #define _GRAPH_ADJLIST_
 
-# include <stdio.h>
-# include <stdlib.h>
+#include "linkedlist.h"
+#include "linkeddeque.h"
 
 typedef struct LinkedGraphType
 {

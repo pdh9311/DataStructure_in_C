@@ -1,11 +1,8 @@
 #ifndef _GRAPH_ADJMATRIX_
 #define _GRAPH_ADJMATRIX_
 
-# include <stdio.h>
-# include <stdlib.h>
-
-# define UNDIRECTED 1
-# define DIRECTED 2
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct ArrayGraphType
 {
