@@ -175,7 +175,7 @@ int addEdgewithWeightLG(LinkedGraph* pGraph, int fromVertexID, int toVertexID, i
 	if (pGraph->graphType == GRAPH_UNDIRECTED)
 	{
 		pGraph->graphType = GRAPH_DIRECTED;
-		val = addEdgeLG(pGraph, toVertexID, fromVertexID);
+		val = addEdgewithWeightLG(pGraph, toVertexID, fromVertexID, weight);
 		if (val == FAIL)
 			return (FAIL);
 		(pGraph->currentEdgeCount)--;
@@ -294,3 +294,4 @@ void displayLinkedGraph(LinkedGraph* pGraph)
 	}
 	printf("[vertexCnt: %d, edgeCnt: %d]\n", pGraph->currentVertexCount, pGraph->currentEdgeCount);
 }
+

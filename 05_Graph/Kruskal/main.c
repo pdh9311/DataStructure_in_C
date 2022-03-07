@@ -1,25 +1,5 @@
 #include "Kruskal.h"
 
-/* [union-find test]
-int main(void)
-{
-	int parent[10];
-
-	for (int i = 0; i < 10; i++)
-		parent[i] = i;
-	unionParent(parent, 0, 1);
-	unionParent(parent, 1, 2);
-	unionParent(parent, 2, 3);
-
-	unionParent(parent, 4, 5);
-	unionParent(parent, 5, 6);
-	printf("%d과 %d는 같은 부모를 가지고 있나? %d\n", 1, 2, findParent(parent, 1, 2));
-	printf("%d과 %d는 같은 부모를 가지고 있나? %d\n", 1, 4, findParent(parent, 1, 4));
-	return (0);
-}
-*/
-#include "linkedgraph.h"
-
 static void	dfs(LinkedGraph *graph, int root)
 {
 	LinkedDeque	*stack;
@@ -40,7 +20,7 @@ static void	dfs(LinkedGraph *graph, int root)
 		printf("%d -> ", node->data);
 		for (int i = ((graph->ppAdjEdge)[node->data])->currentElementCount - 1; i >= 0; i--)
 		{
-			insert.data = getLLElement((graph->ppAdjEdge)[node->data], i)->data;
+			insert.data = getLLElement((graph->ppAdjEdge)[node->data], i)->vertexID;
 			if (check[insert.data] == 0)
 			{
 				check[insert.data] = 1;
@@ -71,7 +51,7 @@ static void	bfs(LinkedGraph *graph, int	root)
 		printf("%d -> ", node->data);
 		for (int i = 0; i < ((graph->ppAdjEdge)[node->data])->currentElementCount; i++)
 		{
-			insert.data = getLLElement((graph->ppAdjEdge)[node->data], i)->data;
+			insert.data = getLLElement((graph->ppAdjEdge)[node->data], i)->vertexID;
 			if (check[insert.data] == 0)
 			{
 				check[insert.data] = 1;
@@ -84,36 +64,35 @@ static void	bfs(LinkedGraph *graph, int	root)
 
 int main(void)
 {
-	LinkedGraph	*graph;
-	graph = createLinkedGraph(6);
-	// displayLinkedGraph(graph);	printf("\n");
+	LinkedGraph	*lGraph;
+	lGraph = createLinkedGraph(6);
+	// displayLinkedGraph(lGraph);	printf("\n");
 
-	addVertexLG(graph, 0);
-	addVertexLG(graph, 1);
-	addVertexLG(graph, 2);
-	addVertexLG(graph, 3);
-	addVertexLG(graph, 4);
-	addVertexLG(graph, 5);
+	addVertexLG(lGraph, 0);
+	addVertexLG(lGraph, 1);
+	addVertexLG(lGraph, 2);
+	addVertexLG(lGraph, 3);
+	addVertexLG(lGraph, 4);
+	addVertexLG(lGraph, 5);
 
-	addEdgeLG(graph, 0, 1);
-	addEdgeLG(graph, 0, 2);
-	addEdgeLG(graph, 1, 2);
-	addEdgeLG(graph, 2, 3);
-	addEdgeLG(graph, 3, 4);
-	addEdgeLG(graph, 3, 5);
-	addEdgeLG(graph, 4, 5);
-	displayLinkedGraph(graph);	printf("\n");
+	addEdgewithWeightLG(lGraph, 0, 1, 4);
+	addEdgewithWeightLG(lGraph, 0, 2, 3);
+	addEdgewithWeightLG(lGraph, 1, 2, 2);
+	addEdgewithWeightLG(lGraph, 2, 3, 1);
+	addEdgewithWeightLG(lGraph, 3, 4, 1);
+	addEdgewithWeightLG(lGraph, 3, 5, 5);
+	addEdgewithWeightLG(lGraph, 4, 5, 6);
+	displayLinkedGraph(lGraph);	printf("\n");
 
-	// bfs(graph, 0);
-	// dfs(graph, 0);
+	KruskalMST *kMST;
 
-	// displayLinkedGraph(graph);	printf("\n");
+	kMST = createKruskalLG(lGraph);
+	displayKruskalMST(kMST);
+	quicksortEdge(kMST->edges, 0, kMST->graphEdgeCount - 1);
+	displayKruskalMST(kMST);
 
-	// // removeEdgeLG(graph, 4, 0);
-	// // displayLinkedGraph(graph);	printf("\n");
-
-	// removeVertexLG(graph, 1);
-	// displayLinkedGraph(graph);	printf("\n");
+	int distance = kruskal(kMST);
+	printf("최소 신장트리의 거리: %d\n", distance);
 
 	return (0);
 }
