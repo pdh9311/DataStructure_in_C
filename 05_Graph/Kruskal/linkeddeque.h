@@ -4,10 +4,11 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include "color.h"
+# include "linkedlist.h"
 
 typedef struct DequeNodeType
 {
-	char data;
+	int data;
 	struct DequeNodeType* pRLink;
 	struct DequeNodeType* pLLink;
 } DequeNode;

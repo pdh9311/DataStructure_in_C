@@ -1,3 +1,23 @@
+#include "Kruskal.h"
+
+/* [union-find test]
+int main(void)
+{
+	int parent[10];
+
+	for (int i = 0; i < 10; i++)
+		parent[i] = i;
+	unionParent(parent, 0, 1);
+	unionParent(parent, 1, 2);
+	unionParent(parent, 2, 3);
+
+	unionParent(parent, 4, 5);
+	unionParent(parent, 5, 6);
+	printf("%d과 %d는 같은 부모를 가지고 있나? %d\n", 1, 2, findParent(parent, 1, 2));
+	printf("%d과 %d는 같은 부모를 가지고 있나? %d\n", 1, 4, findParent(parent, 1, 4));
+	return (0);
+}
+*/
 #include "linkedgraph.h"
 
 static void	dfs(LinkedGraph *graph, int root)
@@ -65,8 +85,8 @@ static void	bfs(LinkedGraph *graph, int	root)
 int main(void)
 {
 	LinkedGraph	*graph;
-	graph = createLinkedDirectedGraph(8);
-	displayLinkedGraph(graph);	printf("\n");
+	graph = createLinkedGraph(6);
+	// displayLinkedGraph(graph);	printf("\n");
 
 	addVertexLG(graph, 0);
 	addVertexLG(graph, 1);
@@ -74,15 +94,13 @@ int main(void)
 	addVertexLG(graph, 3);
 	addVertexLG(graph, 4);
 	addVertexLG(graph, 5);
-	addVertexLG(graph, 6);
-	addVertexLG(graph, 7);
+
 	addEdgeLG(graph, 0, 1);
 	addEdgeLG(graph, 0, 2);
-	addEdgeLG(graph, 1, 3);
-	addEdgeLG(graph, 1, 4);
-	addEdgeLG(graph, 2, 5);
-	addEdgeLG(graph, 2, 6);
-	addEdgeLG(graph, 3, 7);
+	addEdgeLG(graph, 1, 2);
+	addEdgeLG(graph, 2, 3);
+	addEdgeLG(graph, 3, 4);
+	addEdgeLG(graph, 3, 5);
 	addEdgeLG(graph, 4, 5);
 	displayLinkedGraph(graph);	printf("\n");
 

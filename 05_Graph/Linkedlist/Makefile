@@ -1,7 +1,7 @@
 NAME = a.out
 
-# CFLAGE = -Wall -Wextra -Werror
-SRCS = main.c linkeddeque.c
+CFLAGE = -Wall -Wextra -Werror
+SRCS = main.c linkedlist.c
 OBJS = $(SRCS:.c=.o)
 
 $(NAME) : $(OBJS)

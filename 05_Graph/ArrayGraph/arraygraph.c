@@ -132,10 +132,18 @@ int addEdgeAG(ArrayGraph* pGraph, int fromVertexID, int toVertexID)
 	return (FAIL);
 
 }
-// int addEdgewithWeightAG(ArrayGraph* pGraph, int fromVertexID, int toVertexID, int weight)
-// {
-
-// }
+int addEdgewithWeightAG(ArrayGraph* pGraph, int fromVertexID, int toVertexID, int weight)
+{
+	if (checkVertexValid(pGraph, fromVertexID) && checkVertexValid(pGraph, toVertexID)
+		&& (pGraph->pVertex)[fromVertexID] == USED && (pGraph->pVertex)[toVertexID] == USED)
+	{
+		(pGraph->ppAdjEdge)[fromVertexID][toVertexID] = weight;
+		if (pGraph->graphType == GRAPH_UNDIRECTED)
+			(pGraph->ppAdjEdge)[toVertexID][fromVertexID] = weight;
+		return (SUCCESS);
+	}
+	return (FAIL);
+}
 
 // 노드의 유효성 점검.
 int checkVertexValid(ArrayGraph* pGraph, int vertexID)

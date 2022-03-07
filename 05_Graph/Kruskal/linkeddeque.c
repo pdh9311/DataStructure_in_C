@@ -96,7 +96,7 @@ DequeNode* deleteRearLD(LinkedDeque* pDeque)
 		return (NULL);
 	}
 	if (pDeque->currentElementCount == 0) {
-		printf("%scurrentElementCount is zero!!%s\n", C_RED, C_NC);
+		// printf("%scurrentElementCount is zero!!%s\n", C_RED, C_NC);
 		return (NULL);
 	}
 	del = pDeque->pRearNode;
@@ -155,7 +155,7 @@ int isLinkedDequeEmpty(LinkedDeque* pDeque)
 		return (TRUE);
 	}
 	if (pDeque->currentElementCount == 0) {
-		printf("%scurrentElementCount is zero!!%s\n", C_RED, C_NC);
+		// printf("%scurrentElementCount is zero!!%s\n", C_RED, C_NC);
 		return (TRUE);
 	}
 	return (FALSE);
@@ -172,7 +172,7 @@ void displayLinkedDeque(LinkedDeque* pDeque)
 	tmp = pDeque->pFrontNode;
 	printf("Front ⇄ ");
 	while (tmp != NULL) {
-		printf("%c ", tmp->data);
+		printf("%d ", tmp->data);
 		tmp = tmp->pRLink;
 	}
 	printf("⇄ Rear\n");
