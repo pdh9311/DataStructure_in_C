@@ -121,3 +121,17 @@ void displayLinkedList(LinkedList* pList)
 		node = node->pLink;
 	}
 }
+
+
+// ListNode	*getLLVertexID(LinkedList *pList, int vertexID)
+// {
+// 	ListNode *node;
+
+// 	node = (pList->headerNode).pLink;
+// 	while (node != NULL)
+// 	{
+// 		if (node->vertexID == vertexID)
+// 			return (node);
+// 		node = node->pLink;
+// 	}
+// }

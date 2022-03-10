@@ -2,7 +2,6 @@
 # define PRIM_H
 
 # include "linkedgraph.h"
-# include "Heap.h"
 # include "limits.h"
 
 
