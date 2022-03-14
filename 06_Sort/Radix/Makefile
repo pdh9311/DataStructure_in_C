@@ -1,7 +1,7 @@
 NAME = a.out
 
 CFLAGE = -Wall -Wextra -Werror
-SRCS = main.c radix.c
+SRCS = main.c shell.c arraylist.c
 OBJS = $(SRCS:.c=.o)
 
 $(NAME) : $(OBJS)
